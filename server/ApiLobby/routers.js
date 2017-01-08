@@ -18,11 +18,41 @@ var CreateRouters = function (app) {
     app.use(api.general.logging.clientErrorHandler)
     app.use(api.general.logging.errorHandler)
 
-    //Put
-    router.put('/api/connection/', api.connections.connect);
 
-    //Delete
-    router.delete('/api/connection/', api.connections.disconnect);
+    //*** GET ***
+    //Commands
+    router.get('/api/commands/', api.commands.getAll); ///api/commands
+    router.get('/api/commands/:id', api.commands.getById); // /api/commands/58724d50d25ac002ff417602
+    //Procedures
+    router.get('/api/procedures/', api.procedures.getAll);
+    router.get('/api/procedures/:id', api.procedures.getById);
+
+
+    //*** Put ***
+    //Connections
+    router.put('/api/connection/', api.connections.connect); // /api/connection/ {body}
+    //Commands
+    // Create new command only 
+    router.put('/api/commands/', api.commands.create); // /api/commands {body}
+    //Procedures
+    // Create new Procedures only
+    router.put('/api/procedures/', api.procedures.create); 
+
+
+    //*** POST ***
+    //Commands
+    router.post('/api/commands/:id', api.commands.update); // update command only {body}
+    //Procedures
+    router.post('/api/procedures/:id', api.procedures.update); // Create new Procedures only
+
+
+    //*** Delete ***
+    //connections
+    router.delete('/api/connection/:id', api.connections.disconnect); //api/connection/5871fd760f4db73813c1e9a9
+    //Commands
+    router.delete('/api/commands/', api.commands.remove);
+    //Procedures
+    router.delete('/api/procedures/', api.procedures.remove);
 
     app.use('/', router);
 }

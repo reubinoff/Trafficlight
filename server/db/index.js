@@ -1,4 +1,5 @@
 module.exports = {
   db: require('./db'),
-  connections: require('./connections')
+  connections: require('./connections'),
+  commands: require('./commands')
 }
