@@ -54,7 +54,7 @@ var CreateRouters = function (app) {
     //Commands
     router.delete('/api/commands/:id', api.commands.remove); ///api/commands/5872866831518b21b69dc58e
     //Procedures
-    router.delete('/api/procedures/:id', api.procedures.remove); 
+    router.delete('/api/procedures/:id', api.procedures.remove); ///api/procedures/58729f3c34efe341ae684bde
 
     app.use('/', router);
 }
