@@ -1,13 +1,14 @@
 
 var mongoose = require('mongoose');
+var Procedure = mongoose.model('Procedure');
 var Command = mongoose.model('Command');
 
-var create = function (command) {
+var create = function (procedure) {
     return new Promise(function (resolve, reject) {
-        var cmd = new Command(command)
-        cmd.save(function (err, rec) {
+        var pro = new Procedure(procedure)
+        pro.save(function (err, rec) {
             if (err) reject(err);
-            else resolve(cmd.id);
+            else resolve(pro.id);
         });
 
     });
@@ -15,29 +16,30 @@ var create = function (command) {
 
 var remove = function (id) {
     return new Promise(function (resolve, reject) {
-        Command.remove({_id:id}, function (err, foundConn) {
+        Procedure.remove({ _id: id }, function (err, foundConn) {
             if (err) reject(err)
             else resolve(foundConn);
         });
     });
 }
-
 
 var getAll = function () {
     return new Promise(function (resolve, reject) {
-        Command.find(function (err, foundConn) {
-            if (err) reject(err)
-            else resolve(foundConn);
+        Procedure.find().populate('commands.command').exec(function (err, doc) {
+            if (err) reject(err);
+            resolve(doc);
         });
+
     });
 
 
 }
+
 var getById = function (id) {
     return new Promise(function (resolve, reject) {
-        Command.findById(id, function (err, foundConn) {
+        Procedure.findById(id).populate('commands.command').exec(function (err, foundProc) {
             if (err) reject(err)
-            else resolve(foundConn);
+            else resolve(foundProc);
         });
     });
 
@@ -46,7 +48,7 @@ var getById = function (id) {
 
 var update = function (id, model) {
     return new Promise(function (resolve, reject) {
-        Command.update({ _id: id }, model, function (err, foundConn) {
+        Procedure.update({ _id: id }, model, function (err, foundConn) {
             if (err) reject(err)
             else resolve(foundConn);
         });

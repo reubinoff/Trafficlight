@@ -13,7 +13,6 @@ function create(req, res) {
         console.log(req.url + "\n " + general.messages.errorMessage(errors.INVALID_DATA,JSON.stringify(req.body)));
         return res.status(errors.INVALID_DATA.code).json(general.messages.errorMessage(errors.INVALID_DATA,JSON.stringify(req.body)));
     }
-    checkDataValidation(req.body);
 
     db.commands.create( req.body).then(
         function(record_id) {
@@ -23,6 +22,8 @@ function create(req, res) {
         },
         function(err) {
             console.log(req.url + "\n " + JSON.stringify(errors.INVALID_DATA) + "\n" + err);
+            var errMsg = general.messages.errorMessage(errors.INVALID_DATA, JSON.stringify(req.body));
+            return res.status(errors.INVALID_DATA.code).json(errMsg);
         }
     );
 

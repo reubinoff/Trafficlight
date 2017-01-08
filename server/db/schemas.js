@@ -14,16 +14,17 @@ var Command = new Schema({
     command: String,
     isSudoRequired: Boolean,
     timeoutInMilli: Number,
-    description:String
+    description: String
 });
+
 
 var Procedure = new Schema({
     commands:
     [{
-        command: Command,
+        command: { type: Schema.Types.ObjectId, ref: 'Command' },
         order: Number
     }],
-    description:String
+    description: String
 });
 
 module.exports.Connection = Connection;
