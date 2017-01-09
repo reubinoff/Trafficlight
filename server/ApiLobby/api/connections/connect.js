@@ -2,10 +2,12 @@ var errors = require('../errors');
 var ssh = require('../../../ssh')
 var db = require('../../../db');
 var general = require('../general')
+var winston = require('winston');
+
 function connect(req, res) {
     if (Object.keys(req.body).length === 0) {
         // empty query
-        console.log(req.url + "\n " + JSON.stringify(errors.INVALID_DATA));
+        winston.log(req.url + "\n " + JSON.stringify(errors.INVALID_DATA));
         return res.status(errors.INVALID_DATA.code).json(general.messages.errorMessage(errors.INVALID_DATA));
     }
 
@@ -17,7 +19,7 @@ function connect(req, res) {
     var port = args.port;
 
     if (ip == null || user == null || password == null || port == null) {
-        console.log(req.url + "\n " + JSON.stringify(errors.INVALID_DATA));
+        winston.log(req.url + "\n " + JSON.stringify(errors.INVALID_DATA));
         return res.status(errors.INVALID_DATA.code).json(general.messages.errorMessage(errors.INVALID_DATA));
     }
 
@@ -25,10 +27,8 @@ function connect(req, res) {
         ssh.createConnection(ip, user, password, port)
         .then(
             function () {
-            db.connections.createConnection(ip, user, password, port, function (record_id) {
-                var msg = general.messages.generalMessage({ id: record_id }, 200, '');
-                return res.status(msg.code).json(msg);
-                console.log(id);
+            db.connections.createConnection(ip, user, password, port, function (record) {
+                return res.status(general.codes.OK).json(record);
             });
         },
             function (err) {
@@ -49,6 +49,9 @@ var Promise = require('bluebird');
 
 function checkConnection(host, port, timeout) {
     return new Promise(function (resolve, reject) {
+        if (process.env.NODE_ENV == 'test') {
+            resolve();
+        }
         timeout = timeout || 5000;     // default of 10 seconds
         var timer = setTimeout(function () {
             reject("timeout");

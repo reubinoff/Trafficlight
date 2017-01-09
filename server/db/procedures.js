@@ -8,7 +8,7 @@ var create = function (procedure) {
         var pro = new Procedure(procedure)
         pro.save(function (err, rec) {
             if (err) reject(err);
-            else resolve(pro.id);
+            else resolve(pro);
         });
 
     });

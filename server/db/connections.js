@@ -1,4 +1,4 @@
-
+var winston = require('winston');
 var mongoose = require('mongoose');
 var Connection = mongoose.model('Connection');
 
@@ -13,17 +13,17 @@ var createConnection = function (ip, user, password, port, cb) {
 
     Connection.find({ "ip": conn.ip }, function (err, foundConn) {
         if (foundConn.length == 0) {
-            console.log('Adding new connection to DB');
+            winston.log('Adding new connection to DB');
             conn.save(function (err, rec) {
                 if (err) return next(err);
-                if (cb) cb(rec.id);
+                if (cb) cb(rec);
             });
         } else {
-            console.log('Updating new connection to DB');
+            winston.log('Updating new connection to DB');
             foundConn.modified = conn;
             foundConn[0].save(function (err, rec) {
                 if (err) return next(err);
-                if (cb) cb(rec.id);
+                if (cb) cb(rec);
             });
         }
     });
@@ -31,21 +31,41 @@ var createConnection = function (ip, user, password, port, cb) {
 
 var deleteConnection = function (id) {
     return new Promise(function (resolve, reject) {
-
-        Connection.findById(id, function (err, foundConn) {
-            if (foundConn==null) {
-                resolve(foundConn);
-            } else {
-                foundConn.remove(function (err, res) {
-                    if (err) reject(err)
-                    else resolve(res);
-                });
-            }
+        Connection.remove({ _id: id }, function (err, foundConn) {
+            if (err) reject(err)
+            else resolve(foundConn);
         });
     });
 
 
 }
-module.exports.deleteConnection=deleteConnection;
+
+
+var getAll = function () {
+    return new Promise(function (resolve, reject) {
+        Connection.find(function (err, foundConn) {
+            if (err) reject(err)
+            else resolve(foundConn);
+        });
+    });
+
+
+}
+var getById = function (id) {
+    return new Promise(function (resolve, reject) {
+        Connection.findById(id, function (err, foundConn) {
+            if (err) reject(err)
+            else if (foundConn == null) resolve({})
+            else resolve(foundConn);
+        });
+    });
+
+
+}
+
+
+module.exports.deleteConnection = deleteConnection;
 module.exports.createConnection = createConnection;
+module.exports.getAll = getAll;
+module.exports.getById = getById;
 

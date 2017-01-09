@@ -4,14 +4,16 @@ var general = require('../general');
 var winston = require('winston');
 
 function getAll(req, res) {
-    db.procedures.getAll().then(
-        function (records) {
+    
+
+    db.connections.getAll().then(
+        function(records) {
             return res.status(general.codes.OK).json(records);
             winston.log(id);
         },
-        function (err) {
+        function(err) {
             winston.log(req.url + "\n " + JSON.stringify(errors.INVALID_DATA) + "\n" + err);
-        });
+    });
 
 }
 

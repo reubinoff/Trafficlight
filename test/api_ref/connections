@@ -28,3 +28,22 @@ result:
 {
   "code": 200
 }
+
+
+// GET
+url:
+localhost:8081/api/connection
+
+body:
+
+result:
+[
+  {
+    "_id": "5872c17b8d868b73c1241a1b",
+    "ip": "192.168.1.4",
+    "user": "mreubino",
+    "password": "Napster1_0911",
+    "port": 22,
+    "__v": 0
+  }
+]

@@ -1,11 +1,13 @@
-
+var util = require('util');
+process.env.test
 module.exports.timestamp = timestamp;
 module.exports.logErrors = logErrors;
 module.exports.clientErrorHandler = clientErrorHandler;
 module.exports.errorHandler = errorHandler;
 
 function timestamp(req, res, next) {
-  console.log('Time:', Date.now(), "\n" + "api: " + req.url)
+  if (process.env.NODE_ENV != 'test')
+    console.log(util.format('%s>> api: %s %s', Date.now(), req.method, req.url));
   next()
 }
 

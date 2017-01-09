@@ -3,7 +3,7 @@ var db = require('../../../db');
 var general = require('../general');
 var winston = require('winston');
 
-function remove(req, res) {
+function getById(req, res) {
     if (Object.keys(req.params).length === 0) {
         // empty query
         winston.log(req.url + "\n " + JSON.stringify(errors.INVALID_DATA));
@@ -19,10 +19,9 @@ function remove(req, res) {
         return res.status(errors.INVALID_DATA.code).json(general.messages.errorMessage(errors.INVALID_DATA));
     }
 
-    db.commands.remove(id).then(
+    db.connections.getById(id).then(
         function (record) {
-            var msg = general.messages.generalMessage({ command: record }, 200);
-            return res.status(msg.code).json(msg);
+            return res.status(general.codes.OK).json(record);
             winston.log(id);
         },
         function (err) {
@@ -32,4 +31,4 @@ function remove(req, res) {
 }
 
 
-module.exports = remove;
+module.exports = getById;

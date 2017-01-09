@@ -1,6 +1,7 @@
 var errors = require('../errors');
 var db = require('../../../db');
 var general = require('../general');
+var winston = require('winston');
 
 function getAll(req, res) {
     
@@ -8,10 +9,10 @@ function getAll(req, res) {
     db.commands.getAll().then(
         function(records) {
             return res.status(general.codes.OK).json(records);
-            console.log(id);
+            winston.log(id);
         },
         function(err) {
-            console.log(req.url + "\n " + JSON.stringify(errors.INVALID_DATA) + "\n" + err);
+            winston.log(req.url + "\n " + JSON.stringify(errors.INVALID_DATA) + "\n" + err);
     });
 
 }

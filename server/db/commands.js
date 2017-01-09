@@ -7,7 +7,7 @@ var create = function (command) {
         var cmd = new Command(command)
         cmd.save(function (err, rec) {
             if (err) reject(err);
-            else resolve(cmd.id);
+            else resolve(cmd);
         });
 
     });

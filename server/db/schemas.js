@@ -3,18 +3,18 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Connection = new Schema({
-    ip: String,
-    user: String,
-    password: String,
-    port: Number,
+    ip:{type: String,required:true},
+    user: {type: String,required:true},
+    password: {type: String,required:true},
+    port: {type: Number,required:true},
 });
 
 
 var Command = new Schema({
-    command: String,
-    isSudoRequired: Boolean,
-    timeoutInMilli: Number,
-    description: String
+    command: {type: String,required:true},
+    isSudoRequired: {type:Boolean,default:false},
+    timeoutInMilli: {type:Number,default:500},
+    description: {type:String,default:""}
 });
 
 
@@ -24,7 +24,7 @@ var Procedure = new Schema({
         command: { type: Schema.Types.ObjectId, ref: 'Command' },
         order: Number
     }],
-    description: String
+    description: {type:String,default:""}
 });
 
 module.exports.Connection = Connection;

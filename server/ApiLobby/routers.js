@@ -3,7 +3,7 @@ var api = require('./api')
 var bodyParser = require('body-parser');
 var express = require('express');
 var methodOverride = require('method-override')
-
+var morgan = require('morgan')
 
 var CreateRouters = function (app) {
 
@@ -13,13 +13,19 @@ var CreateRouters = function (app) {
     app.use(methodOverride())
 
     //General
-    router.use(api.general.logging.timestamp);
+    if (process.env.NODE_ENV != 'test') {
+        app.use(morgan('dev')); //'combined' outputs the Apache style LOGs
+    }
+    // router.use(api.general.logging.timestamp);
     app.use(api.general.logging.logErrors)
     app.use(api.general.logging.clientErrorHandler)
     app.use(api.general.logging.errorHandler)
 
 
     //*** GET ***
+    //Connections
+    router.get('/api/connections/', api.connections.getAll); ///api/connection
+    router.get('/api/connections/:id', api.connections.getById); ///api/connection/58724d50d25ac002ff417602
     //Commands
     router.get('/api/commands/', api.commands.getAll); ///api/commands
     router.get('/api/commands/:id', api.commands.getById); // /api/commands/58724d50d25ac002ff417602
@@ -30,7 +36,7 @@ var CreateRouters = function (app) {
 
     //*** Put ***
     //Connections
-    router.put('/api/connection/', api.connections.connect); // /api/connection/ {body}
+    router.put('/api/connections/', api.connections.connect); // /api/connection/ {body}
     //Commands
     // Create new command only 
     router.put('/api/commands/', api.commands.create); // /api/commands {body}
@@ -50,7 +56,7 @@ var CreateRouters = function (app) {
 
     //*** Delete ***
     //connections
-    router.delete('/api/connection/:id', api.connections.disconnect); //api/connection/5871fd760f4db73813c1e9a9
+    router.delete('/api/connections/:id', api.connections.disconnect); //api/connection/5871fd760f4db73813c1e9a9
     //Commands
     router.delete('/api/commands/:id', api.commands.remove); ///api/commands/5872866831518b21b69dc58e
     //Procedures

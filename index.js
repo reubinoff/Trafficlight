@@ -5,10 +5,12 @@ var app = express();
 var url = require("url");
 var queryString = require("querystring");
 var db = require('./server/db')
+var winston = require('winston');
 
 
-
-
+if (process.env.NODE_ENV == 'test') {
+    winston.remove(winston.transports.Console);
+}
 
 var pages_path = "lights/build";
 
@@ -29,7 +31,8 @@ var server = app.listen(config.web.port, function () {
     var host = server.address().address
     var port = server.address().port
 
-    console.log("Example app listening at http://%s:%s", host, port)
+    winston.info("Example app listening at http://%s:%s", host, port)
 
 })
 
+module.exports = app;
