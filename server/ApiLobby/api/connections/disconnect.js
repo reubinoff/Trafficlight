@@ -19,8 +19,8 @@ function disconnect(req, res) {
 
 
     db.connections.deleteConnection(id).then(
-        function () {
-            var msg = general.messages.generalMessage({}, 200, '');
+        function (foundConn) {
+            var msg = general.messages.generalMessage({ connection: foundConn }, 200);
             return res.status(msg.code).json(msg);
         },
         function (err) {

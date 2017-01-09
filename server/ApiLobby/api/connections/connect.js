@@ -43,30 +43,13 @@ function connect(req, res) {
 
 }
 
-var ping = require('net-ping');
-
-function checkPing(ip) {
-    checkConnection(ip, 22);
-    var options = {
-        retries: 1,
-        timeout: 2000
-    };
-
-    var session = ping.createSession(options);
-    session.pingHost(ip, function (error, target) {
-        if (error)
-            return false;
-        else
-            return true;
-    });
-}
 
 var net = require('net');
 var Promise = require('bluebird');
 
 function checkConnection(host, port, timeout) {
     return new Promise(function (resolve, reject) {
-        timeout = timeout || 10000;     // default of 10 seconds
+        timeout = timeout || 5000;     // default of 10 seconds
         var timer = setTimeout(function () {
             reject("timeout");
             socket.end();

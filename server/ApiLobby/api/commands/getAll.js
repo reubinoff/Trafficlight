@@ -7,8 +7,7 @@ function getAll(req, res) {
 
     db.commands.getAll().then(
         function(records) {
-            var msg = general.messages.generalMessage({ commands: records }, 200);
-            return res.status(msg.code).json(msg);
+            return res.status(general.codes.OK).json(records);
             console.log(id);
         },
         function(err) {

@@ -18,6 +18,9 @@ function create(ip, user, pass, port) {
             },
             err: function (stderr) {
                 reject(stderr); // this-does-not-exist: command not found 
+            },
+            timeout: function (err) {
+                reject(stderr);
             }
         }).start();
     });

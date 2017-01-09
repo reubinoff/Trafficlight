@@ -34,11 +34,11 @@ var deleteConnection = function (id) {
 
         Connection.findById(id, function (err, foundConn) {
             if (foundConn==null) {
-                resolve();
+                resolve(foundConn);
             } else {
                 foundConn.remove(function (err, res) {
                     if (err) reject(err)
-                    else resolve();
+                    else resolve(res);
                 });
             }
         });

@@ -2,6 +2,7 @@ var merge = require('merge');
 
 module.exports.generalMessage = generalMessage;
 module.exports.errorMessage=errorMessage;
+
 function generalMessage(replayJsonMessage,code,description){
     
     var msg={

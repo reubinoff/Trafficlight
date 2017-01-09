@@ -1,4 +1,5 @@
 module.exports = {
   logging: require('./logging'),
-  messages: require('./messages')
+  messages: require('./messages'),
+  codes: require('./codes')
 }
