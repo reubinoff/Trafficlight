@@ -1,9 +1,4 @@
 sudo: true
 language: node_js
 node_js:
-  - '6.0'
   - stable
-before_install:
-  - npm install -g dredd@stable
-before_script:
-  - dredd
