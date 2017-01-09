@@ -8,8 +8,12 @@ var db = require('./server/db')
 var winston = require('winston');
 
 
+var port =0;
 if (process.env.NODE_ENV == 'test') {
     winston.remove(winston.transports.Console);
+    var port =8081;
+}else{
+    port = config.web.port
 }
 
 var pages_path = "lights/build";
@@ -26,7 +30,7 @@ routers.CreateRouters(app);
 
 
 //Start Server Listener
-var server = app.listen(config.web.port, function () {
+var server = app.listen(port, function () {
 
     var host = server.address().address
     var port = server.address().port
