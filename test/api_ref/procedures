@@ -1,0 +1,117 @@
+// GET
+
+url:
+localhost:8081/api/procedures
+localhost:8081/api/procedures/5872ba604cfc1e6b5dc6a20b
+
+
+body:
+
+result:
+{
+  "code": 200,
+  "description": {
+    "commands": [
+      {
+        "_id": "5872866931518b21b69dc58f",
+        "order": 1
+      },
+      {
+        "_id": "5872866931518b21b69dc58f",
+        "order": 2
+      }
+    ],
+    "description": "procedure D"
+  },
+  "id": "5872ba604cfc1e6b5dc6a20b"
+}
+
+
+
+
+// POST
+url:
+localhost:8081/api/procedures/58729f3c34efe341ae684bde
+
+body:
+{
+	"commands":[
+		{
+			"command":"5872866931518b21b69dc58f",
+			"order":4
+		},
+		{
+			"command":"5872866931518b21b69dc58f",
+			"order":2
+		}
+		]
+		,
+    "description":"procedure D"
+}
+
+result:
+{
+  "code": 200,
+  "procedure": {
+    "n": 0,
+    "nModified": 0,
+    "ok": 1
+  }
+}
+
+
+
+//PUT
+url:
+localhost:8081/api/procedures
+
+body:
+{
+	"commands":[
+		{
+			"command":"5872866931518b21b69dc58f",
+			"order":3
+		},
+		{
+			"command":"5872866931518b21b69dc58f",
+			"order":2
+		}
+		]
+		,
+    "description":"procedure D"
+}
+result:
+{
+  "code": 200,
+  "description": {
+    "commands": [
+      {
+        "command": "5872866931518b21b69dc58f",
+        "order": 3
+      },
+      {
+        "command": "5872866931518b21b69dc58f",
+        "order": 2
+      }
+    ],
+    "description": "procedure D"
+  },
+  "id": "5872bae64cfc1e6b5dc6a20e"
+}
+
+
+
+//DELETE
+url:
+localhost:8081/api/procedures/5872bae64cfc1e6b5dc6a20e
+
+body:
+
+result:
+{
+  "code": 200,
+  "procedure": {
+    "n": 1,
+    "ok": 1
+  }
+}

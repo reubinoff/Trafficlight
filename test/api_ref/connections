@@ -1,0 +1,30 @@
+// PUT
+url:
+localhost:8081/api/connection
+
+body:
+{
+	"ip":"192.168.1.4",
+	"user":"mreubino",
+	"password":"Napster1_0911",
+	"port":22
+}
+
+result:
+{
+  "code": 200,
+  "description": "",
+  "id": "5872bf7f6f0179705cb21202"
+}
+
+
+//DELETE
+url:
+localhost:8081/api/connection/5872c0533ca88072c91c6eb5
+
+body:
+
+result:
+{
+  "code": 200
+}

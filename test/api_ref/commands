@@ -1,0 +1,95 @@
+//GET
+url:
+localhost:8081/api/commands/
+localhost:8081/api/commands/5872567214aae01071781368
+
+
+body:
+
+
+result:
+{
+ [
+    {
+      "_id": "5872866931518b21b69dc591",
+      "command": "moshe",
+      "isSudoRequired": true,
+      "timeoutInMilli": 1000,
+      "description": "xczxczc",
+      "__v": 0
+    },
+    {
+      "_id": "5872866a31518b21b69dc594",
+      "command": "moshe",
+      "isSudoRequired": true,
+      "timeoutInMilli": 1000,
+      "description": "xczxczc",
+      "__v": 0
+    }
+  ]
+}
+
+
+
+//POST
+url:
+localhost:8081/api/commands/5872bb9c4cfc1e6b5dc6a211
+
+body:
+{
+	"command":"moshe",
+	"isSudoRequired": true,
+	"timeoutInMilli": 1000,
+	"description": "xczxczc"
+}
+
+result:
+{
+  "code": 200,
+  "command": {
+    "n": 0,
+    "nModified": 0,
+    "ok": 1
+  }
+}
+
+
+//PUT
+url:
+localhost:8081/api/commands
+
+body:
+{
+	"command":"moshe",
+	"isSudoRequired": true,
+	"timeoutInMilli": 1000,
+	"description": "xczxczc"
+}
+
+result:
+{
+  "code": 200,
+  "description": {
+    "command": "moshe",
+    "isSudoRequired": true,
+    "timeoutInMilli": 1000,
+    "description": "xczxczc"
+  },
+  "id": "5872bb9c4cfc1e6b5dc6a211"
+}
+
+
+//DELETE
+url:
+localhost:8081/api/commands/5872bb9c4cfc1e6b5dc6a211
+
+body:
+
+result:
+{
+  "code": 200,
+  "command": {
+    "n": 1,
+    "ok": 1
+  }
+}
