@@ -14,9 +14,9 @@ var CreateRouters = function (app) {
 
     //General
     if (process.env.NODE_ENV != 'test') {
-        app.use(morgan('dev')); //'combined' outputs the Apache style LOGs
+        app.use(morgan('combined')); //'combined' outputs the Apache style LOGs
     }
-    // router.use(api.general.logging.timestamp);
+    router.use(api.general.logging.timestamp);
     app.use(api.general.logging.logErrors)
     app.use(api.general.logging.clientErrorHandler)
     app.use(api.general.logging.errorHandler)

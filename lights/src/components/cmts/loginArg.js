@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 
 class LoginArg extends Component {
-
+    constructor() {
+        super()
+        this.state = { 'loginValue': '' ,name:''}
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange(event) {
+        this.setState({ 'loginValue': event.target.value ,name:event.target.name});
+        if (this.props.onChange)
+            this.props.onChange(event.target.name,event.target.value);
+    }
     render() {
         const labelSyle = {
             "width": "180px",
@@ -16,7 +25,7 @@ class LoginArg extends Component {
         return (
             <div>
                 <label style={labelSyle} >{this.props.label_name}</label>
-                <input name="generic" style={inputSyle} defaultValue={this.props.default_value} />
+                <input name={this.props.label_name} style={inputSyle} defaultValue={this.props.default_value} onChange={this.handleChange} />
             </div>
         );
     }

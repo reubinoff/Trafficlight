@@ -7,7 +7,7 @@ module.exports.errorHandler = errorHandler;
 
 function timestamp(req, res, next) {
   if (process.env.NODE_ENV != 'test')
-    console.log(util.format('%s>> api: %s %s', Date.now(), req.method, req.url));
+    console.log(util.format('%s>> api: %s %s', Date.now(), JSON.stringify(req.body)));
   next()
 }
 
