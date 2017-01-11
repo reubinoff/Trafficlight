@@ -79,4 +79,5 @@ module.exports.deleteCore = deleteCore;
 module.exports.createCore = createCore;
 module.exports.getAll = getAll;
 module.exports.getById = getById;
+module.exports.update = update;
 

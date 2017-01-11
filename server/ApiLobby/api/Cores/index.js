@@ -3,4 +3,5 @@ module.exports = {
   disconnect: require('./disconnect'),
   getAll: require('./getAll'),
   getById:require('./getById'),
+  update:require('./update')
 }

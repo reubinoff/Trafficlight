@@ -23,9 +23,9 @@ var CreateRouters = function (app) {
 
 
     //*** GET ***
-    //Cores
-    router.get('/api/Cores/', api.Cores.getAll); ///api/Core
-    router.get('/api/Cores/:id', api.Cores.getById); ///api/Core/58724d50d25ac002ff417602
+    //cores
+    router.get('/api/cores/', api.cores.getAll); ///api/Core
+    router.get('/api/cores/:id', api.cores.getById); ///api/Core/58724d50d25ac002ff417602
     //Commands
     router.get('/api/commands/', api.commands.getAll); ///api/commands
     router.get('/api/commands/:id', api.commands.getById); // /api/commands/58724d50d25ac002ff417602
@@ -35,8 +35,8 @@ var CreateRouters = function (app) {
 
 
     //*** Put ***
-    //Cores
-    router.put('/api/Cores/', api.Cores.connect); // /api/Core/ {body}
+    //cores
+    router.put('/api/cores/', api.cores.connect); // /api/Core/ {body}
     //Commands
     // Create new command only 
     router.put('/api/commands/', api.commands.create); // /api/commands {body}
@@ -52,11 +52,14 @@ var CreateRouters = function (app) {
     //Procedures
     //Create new Procedures only
     router.post('/api/procedures/:id', api.procedures.update); // /api/procedures/58729f3c34efe341ae684bde { body}
+    //cores
+    //Create new Procedures only
+    router.post('/api/cores/:id', api.cores.update); // /api/cores/58729f3c34efe341ae684bde { body}
 
 
     //*** Delete ***
-    //Cores
-    router.delete('/api/Cores/:id', api.Cores.disconnect); //api/Core/5871fd760f4db73813c1e9a9
+    //cores
+    router.delete('/api/cores/:id', api.cores.disconnect); //api/Core/5871fd760f4db73813c1e9a9
     //Commands
     router.delete('/api/commands/:id', api.commands.remove); ///api/commands/5872866831518b21b69dc58e
     //Procedures

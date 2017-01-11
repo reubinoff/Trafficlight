@@ -7,5 +7,8 @@ errors.INVALID_DATA={'code':550 , 'reason':'Invalid Data'};
 
 errors.NO_RESPONSE={'code':551 , 'reason':'No Core to destenation'};
 
+errors.INVALID_ID={'code':552 , 'reason':'Invalid record ID'};
+
+errors.INTERNAL_ERROR={'code':570 , 'reason':'Server internal error'};
 
 module.exports = errors;

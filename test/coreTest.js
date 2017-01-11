@@ -15,9 +15,7 @@ describe('Core', () => {
             done();
         });
     });
-    /*
-      * Test the /GET route
-      */
+
 
     /*
     * Test the /PUT route
@@ -62,6 +60,9 @@ describe('Core', () => {
                 });
         });
     });
+    /*
+* Test the /GET route
+*/
     describe('/GET/:id Core', () => {
         it('it should GET all the Cores', (done) => {
             chai.request(server)
@@ -94,7 +95,42 @@ describe('Core', () => {
 
         });
     });
+    /*
+   * Test the /POST route
+   */
+    describe('/POST/:id Command', () => {
+        it('it should POST a Command by the given id and update existing record', (done) => {
+                let conn1 = new Core({
+                "ip": "192.18.1.4",
+                "user": "myUser",
+                "password": "myPassword",
+                "port": 22
+            });
+             let conn2 = {
+                "ip": "192.18.1.5",
+                "user": "mreubino",
+                "password": "Napster1_0911",
+                "port": 22
+            }
+            conn1.save((err, conn) => {
+                chai.request(server)
+                    .post('/api/cores/' + conn.id)
+                    .send(conn2)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('core');
+                        res.body.core.should.have.property('ok').eql(1);
+                        res.body.core.should.have.property('n').eql(1);
+                        done();
+                    });
+            });
 
+        });
+    });
+    /*
+* Test the /DELETE route
+*/
     describe('/DELETE/:id Core', () => {
         it('it should DELETE a Core given the id', (done) => {
             let conn = new Core({

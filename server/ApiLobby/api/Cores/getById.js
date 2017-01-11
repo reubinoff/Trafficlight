@@ -19,7 +19,7 @@ function getById(req, res) {
         return res.status(errors.INVALID_DATA.code).json(general.messages.errorMessage(errors.INVALID_DATA));
     }
 
-    db.Cores.getById(id).then(
+    db.cores.getById(id).then(
         function (record) {
             return res.status(general.codes.OK).json(record);
             winston.log(id);

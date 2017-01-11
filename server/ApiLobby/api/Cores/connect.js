@@ -23,7 +23,7 @@ function connect(req, res) {
         return res.status(errors.INVALID_DATA.code).json(general.messages.errorMessage(errors.INVALID_DATA));
     }
 
-    db.Cores.createCore(ip, user, password, port, function (record) {
+    db.cores.createCore(ip, user, password, port, function (record) {
         return res.status(general.codes.OK).json(record);
     });
 

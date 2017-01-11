@@ -12,19 +12,19 @@ function update(req, res) {
     var id = req.params.id;
 
     if (id == null) {
-        winston.log(req.url + "\n " + JSON.stringify(errors.INVALID_DATA));
-        return res.status(errors.INVALID_DATA.code).json(general.messages.errorMessage(errors.INVALID_DATA));
+        winston.log(req.url + "\n " + JSON.stringify(errors.INVALID_ID));
+        return res.status(errors.INVALID_ID.code).json(general.messages.errorMessage(errors.INVALID_ID));
     }
 
-    db.Cores.update(id,req.body).then(
+    db.cores.update(id,req.body).then(
         function(record) {
-            var msg = general.messages.generalMessage({ command: record }, 200);
+            var msg = general.messages.generalMessage({ core: record }, 200);
             return res.status(msg.code).json(msg);
             winston.log(id);
         },
         function(err) {
-            winston.log(req.url + "\n " + JSON.stringify(errors.INVALID_DATA) + "\n" + err);
-            return res.status(errors.INVALID_DATA.code).json(general.messages.errorMessage(errors.INVALID_DATA));
+            winston.log(req.url + "\n " + JSON.stringify(errors.INTERNAL_ERROR) + "\n" + err);
+            return res.status(errors.INTERNAL_ERROR.code).json(general.messages.errorMessage(errors.INTERNAL_ERROR));
     });
 
 }

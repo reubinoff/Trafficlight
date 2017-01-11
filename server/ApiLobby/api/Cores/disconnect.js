@@ -20,7 +20,7 @@ function disconnect(req, res) {
     }
 
 
-    db.Cores.deleteCore(id).then(
+    db.cores.deleteCore(id).then(
         function (foundConn) {
             var msg = general.messages.generalMessage({ Core: foundConn }, 200);
             return res.status(msg.code).json(msg);

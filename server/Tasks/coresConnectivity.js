@@ -6,7 +6,7 @@ var winston = require('winston');
 var Promise = require('bluebird');
 
 function checkCoresConnectivity() {
-    db.Cores.getAll().then(
+    db.cores.getAll().then(
         function (records) {
             records.forEach(function (core) {
                 checkSocket(core).then( // Check socket (and ping)
