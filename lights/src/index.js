@@ -7,6 +7,7 @@ import CmtsSummary from './pages/CmtsSummary'
 import Temp from './pages/temp'
 import About from './pages/About'
 import Settings from './pages/Settings'
+import CoreList from './pages/CoreList'
 import './index.css';
 
 ReactDOM.render(
@@ -16,9 +17,11 @@ ReactDOM.render(
             <Route path="Temp" name="Temp" component={Temp}></Route>
             <Route path="Settings" name="Settings" component={Settings}></Route>
             <Route path="About" name="About" component={About}></Route>
+            <Route path="cores" name="CoreList" component={CoreList}></Route>
         </Route>
 
     </Router >
     , document.getElementById('root')
 );
+
 

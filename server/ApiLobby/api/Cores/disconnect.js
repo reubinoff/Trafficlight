@@ -20,9 +20,9 @@ function disconnect(req, res) {
     }
 
 
-    db.connections.deleteConnection(id).then(
+    db.Cores.deleteCore(id).then(
         function (foundConn) {
-            var msg = general.messages.generalMessage({ connection: foundConn }, 200);
+            var msg = general.messages.generalMessage({ Core: foundConn }, 200);
             return res.status(msg.code).json(msg);
         },
         function (err) {

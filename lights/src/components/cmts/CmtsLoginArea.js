@@ -1,22 +1,64 @@
 import React, { Component } from 'react';
-import CmtsLogin from './login';
+import loginArgument from './loginArg';
 import * as actionsCmtsStatus from '../../actions/cmtsStatusActions'
+
 
 class CmtsLoginArea extends Component {
   constructor() {
     super();
     this.state = {
-      login_status: "Disconnected",
-      loginArgs: {}
+      ip: "r",
+      password: "",
+      user: "",
+      port: ""
     }
-    this.ChangeLoginStatus = this.ChangeLoginStatus.bind(this);
+    this.onIpChange = this.onIpChange.bind(this);
+    this.onUserChange = this.onUserChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
+    this.onPortChange = this.onPortChange.bind(this);
+    this.OnAddCoreSubmit = this.OnAddCoreSubmit.bind(this);
+    this.restoreDefaults = this.restoreDefaults.bind(this);
   }
-  ChangeLoginStatus(loginArgs) {
-    this.setState({loginArgs});
+  restoreDefaults(event) {
+    var args = {
+      ip: "0.0.0.0",
+      password: "ccap",
+      user: "ccap",
+      port: "2022"
+    }
+    this.setState({
+      ip: args.ip,
+      password: args.password,
+      user: args.user,
+      port: args.port
+    });
   }
-  cmtsConnected() {
-    console.log("connecting to: ",this.state.loginArgs)
-    actionsCmtsStatus.cmtsConnected(this.state.loginArgs);
+  onIpChange(event) {
+    var ip = event.target.value;
+    this.setState({ ip });
+  }
+  onUserChange(event) {
+    var user = event.target.value;
+    this.setState({ user });
+  }
+  onPasswordChange(event) {
+    var password = event.target.value;
+    this.setState({ password });
+  }
+  onPortChange(event) {
+    var port = event.target.value;
+    this.setState({ port });
+  }
+  OnAddCoreSubmit(event) {
+    var loginArgs = {
+      ip: this.state.ip,
+      password: this.state.password,
+      user: this.state.user,
+      port: this.state.port
+    }
+    console.log("Adding Core: ", JSON.stringify(loginArgs));
+    actionsCmtsStatus.cmtsConnected(loginArgs);
+    event.preventDefault();
   }
   cmtsDisconnected() {
     actionsCmtsStatus.cmtsDisonnected();
@@ -24,23 +66,19 @@ class CmtsLoginArea extends Component {
   render() {
 
     return (
-      <div>
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <CmtsLogin onChangeState={this.ChangeLoginStatus} />
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-lg-12">
-            <div className="btn-toolbar" role="toolbar" aria-label="...">
-              <button className="btn btn-success" onClick={this.cmtsConnected.bind(this)} >Save</button>
-              <button className="btn btn-default" onClick={this.cmtsDisconnected.bind(this)}  >Disconnect</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      React.createElement('div', {},
+        React.createElement('form', { ref: 'form', onSubmit: this.OnAddCoreSubmit, className: 'form-group', noValidate: true },
+          React.createElement(loginArgument, { onValueChange: this.onIpChange, default: '10.40.22.114', name: 'IP', value: this.state.ip }),
+          React.createElement(loginArgument, { onValueChange: this.onUserChange, default: 'ccap', name: 'Username', value: this.state.user }),
+          React.createElement(loginArgument, { onValueChange: this.onPasswordChange, default: 'ccap', name: 'Password', value: this.state.password }),
+          React.createElement(loginArgument, { onValueChange: this.onPortChange, default: '2022', name: 'Port' , value: this.state.port}),
+
+          React.createElement('div', { className: 'row' },
+            React.createElement('button', { className: 'btn btn-info ', type: 'submit', style: { margin: '20px' } }, "Add Core"),
+            React.createElement('button', { type: 'button', onClick: this.restoreDefaults, className: 'btn btn-secondary' }, "Defaults")
+          ),
+        )
+      )
     );
   }
 }

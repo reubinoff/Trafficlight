@@ -1,0 +1,9 @@
+{
+    "files": [
+        "server/","lights/"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+    
+}

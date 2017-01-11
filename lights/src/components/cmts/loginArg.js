@@ -1,34 +1,46 @@
 import React, { Component } from 'react';
 
-class LoginArg extends Component {
-    constructor() {
-        super()
-        this.state = { 'loginValue': '' ,name:''}
-        this.handleChange = this.handleChange.bind(this);
-    }
-    handleChange(event) {
-        this.setState({ 'loginValue': event.target.value ,name:event.target.name});
-        if (this.props.onChange)
-            this.props.onChange(event.target.name,event.target.value);
-    }
-    render() {
-        const labelSyle = {
-            "width": "180px",
-            "clear": "left",
-            "textAlign": "right",
-            "paddingRight": "10px",
-            "float": "left"
-        }
-        const inputSyle = {
-            "float": "left"
-        }
-        return (
-            <div>
-                <label style={labelSyle} >{this.props.label_name}</label>
-                <input name={this.props.label_name} style={inputSyle} defaultValue={this.props.default_value} onChange={this.handleChange} />
-            </div>
-        );
-    }
+
+let styles = {
+  form_row: {
+    width: '50%',
+    margin: '20px'
+  }
 }
 
-export default LoginArg;
+class loginArgument extends Component {
+  constructor() {
+    super();
+    this.state = {
+      loginArgs: {
+        value: ""
+      }
+    }
+  }
+  render() {
+
+    return (
+      React.createElement('div', { className: 'form-group row', style: styles.form_row },
+        React.createElement('label', {className:'col-sm-2 col-form-label' , htmlFor: this.props.name }, this.props.name),
+          React.createElement('input', {
+            id: this.props.name,
+            className: 'form-control ',
+            type: 'text',
+            placeholder: this.props.default,
+            onChange: this.props.onValueChange,
+            value : this.props.value
+          })
+        )
+    );
+  }
+}
+loginArgument.propTypes = {
+  onValueChange: React.PropTypes.func.isRequired,
+  default: React.PropTypes.string,
+  name: React.PropTypes.string.isRequired,
+  value: React.PropTypes.string.isRequired,
+};
+
+
+
+export default loginArgument;

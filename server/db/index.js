@@ -1,6 +1,6 @@
 module.exports = {
   db: require('./db'),
-  connections: require('./connections'),
+  Cores: require('./cores'),
   commands: require('./commands'),
   procedures: require('./procedures')
 }

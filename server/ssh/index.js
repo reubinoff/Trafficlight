@@ -1,3 +1,3 @@
 module.exports = {
-  createConnection: require('./createConnection')
+  createCore: require('./createCore')
 }

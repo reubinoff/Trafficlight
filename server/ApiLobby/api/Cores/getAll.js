@@ -6,7 +6,7 @@ var winston = require('winston');
 function getAll(req, res) {
     
 
-    db.connections.getAll().then(
+    db.Cores.getAll().then(
         function(records) {
             return res.status(general.codes.OK).json(records);
             winston.log(id);

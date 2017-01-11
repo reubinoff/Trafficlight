@@ -23,9 +23,9 @@ var CreateRouters = function (app) {
 
 
     //*** GET ***
-    //Connections
-    router.get('/api/connections/', api.connections.getAll); ///api/connection
-    router.get('/api/connections/:id', api.connections.getById); ///api/connection/58724d50d25ac002ff417602
+    //Cores
+    router.get('/api/Cores/', api.Cores.getAll); ///api/Core
+    router.get('/api/Cores/:id', api.Cores.getById); ///api/Core/58724d50d25ac002ff417602
     //Commands
     router.get('/api/commands/', api.commands.getAll); ///api/commands
     router.get('/api/commands/:id', api.commands.getById); // /api/commands/58724d50d25ac002ff417602
@@ -35,8 +35,8 @@ var CreateRouters = function (app) {
 
 
     //*** Put ***
-    //Connections
-    router.put('/api/connections/', api.connections.connect); // /api/connection/ {body}
+    //Cores
+    router.put('/api/Cores/', api.Cores.connect); // /api/Core/ {body}
     //Commands
     // Create new command only 
     router.put('/api/commands/', api.commands.create); // /api/commands {body}
@@ -55,8 +55,8 @@ var CreateRouters = function (app) {
 
 
     //*** Delete ***
-    //connections
-    router.delete('/api/connections/:id', api.connections.disconnect); //api/connection/5871fd760f4db73813c1e9a9
+    //Cores
+    router.delete('/api/Cores/:id', api.Cores.disconnect); //api/Core/5871fd760f4db73813c1e9a9
     //Commands
     router.delete('/api/commands/:id', api.commands.remove); ///api/commands/5872866831518b21b69dc58e
     //Procedures

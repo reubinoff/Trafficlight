@@ -17,21 +17,7 @@ describe('Procedure', () => {
             done();
         });
     });
-    /*
-      * Test the /GET route
-      */
-    describe('/GET Procedure', () => {
-        it('it should GET all the Procedures', (done) => {
-            chai.request(server)
-                .get('/api/Procedures')
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.a('array');
-                    res.body.length.should.be.eql(0);
-                    done();
-                });
-        });
-    });
+
     /*
     * Test the /PUT route
     */
@@ -68,7 +54,20 @@ describe('Procedure', () => {
             });
         });
     });
+    /*
+   * Test the /GET route
+   */
     describe('/GET/:id Procedure', () => {
+        it('it should GET all the Procedures', (done) => {
+            chai.request(server)
+                .get('/api/Procedures')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(0);
+                    done();
+                });
+        });
         it('it should GET a Procedure by the given id', (done) => {
             let cmd = new Command({
                 "command": "moshe"
@@ -101,6 +100,55 @@ describe('Procedure', () => {
         });
     });
 
+    /*
+     * Test the /POST route
+     */
+    describe('/POST/:id Procedure', () => {
+        it('it should POST a Procedure by the given id and update existing record', (done) => {
+            let cmd = new Command({
+                "command": "moshe"
+            });
+            cmd.save((err, cmd) => {
+                var serv = chai.request(server);
+                let proc = new Procedure({
+                    "commands": [
+                        {
+                            "command": cmd.id,
+                            "order": 3
+                        }
+                    ]
+                    ,
+                    "description": "procedure D"
+                });
+                let proc2 = {
+                    "commands": [
+                        {
+                            "command": cmd.id,
+                            "order": 3
+                        }
+                    ]
+                    ,
+                    "description": "procedure E"
+                };
+                proc.save((err, proc) => {
+                    chai.request(server)
+                        .post('/api/procedures/' + proc.id)
+                        .send(proc2)
+                        .end((err, res) => {
+                            res.should.have.status(200);
+                            res.body.should.be.a('object');
+                            res.body.should.have.property('procedure');
+                            res.body.procedure.should.have.property('ok').eql(1);
+                            res.body.procedure.should.have.property('n').eql(1);
+                            done();
+                        });
+                });
+            });
+        });
+    });
+    /*
+     * Test the /DELETE route
+     */
     describe('/DELETE/:id Procedure', () => {
         it('it should DELETE a Procedure given the id', (done) => {
             let proc = new Procedure({

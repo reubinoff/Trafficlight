@@ -21,6 +21,7 @@ export default class Nav extends React.Component {
         const TempClass = location.pathname.match(/^\/Temp/) ? "active" : "";
         const AboutClass = location.pathname.match(/^\/About/) ? "active" : "";
         const settingsClass = location.pathname.match(/^\/settings/) ? "active" : "";
+        const coresClass = location.pathname.match(/^\/cores/) ? "active" : "";
         const navClass = collapsed ? "collapse" : "";
 
         return (
@@ -29,6 +30,7 @@ export default class Nav extends React.Component {
                     <div className="navbar-header">
                         <button type="button" className="navbar-toggle" onClick={this.toggleCollapse.bind(this)} >
                             <span className="sr-only">Toggle navigation</span>
+                            <span className="icon-bar"></span>
                             <span className="icon-bar"></span>
                             <span className="icon-bar"></span>
                             <span className="icon-bar"></span>
@@ -45,6 +47,9 @@ export default class Nav extends React.Component {
                             </li>
                             <li className={settingsClass}>
                                 <Link to="settings" onClick={this.toggleCollapse.bind(this)}>Settings</Link>
+                            </li>
+                             <li className={coresClass}>
+                                <Link to="cores" onClick={this.toggleCollapse.bind(this)}>Cores</Link>
                             </li>
                                    <li className={AboutClass}>
                                 <IndexLink to="About" onClick={this.toggleCollapse.bind(this)}>About</IndexLink>

@@ -15,21 +15,7 @@ describe('Command', () => {
             done();
         });
     });
-    /*
-      * Test the /GET route
-      */
-    describe('/GET Command', () => {
-        it('it should GET all the Commands', (done) => {
-            chai.request(server)
-                .get('/api/commands')
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.a('array');
-                    res.body.length.should.be.eql(0);
-                    done();
-                });
-        });
-    });
+
     /*
     * Test the /PUT route
     */
@@ -71,7 +57,20 @@ describe('Command', () => {
                 });
         });
     });
+    /*
+    * Test the /GET route
+    */
     describe('/GET/:id Command', () => {
+        it('it should GET all the Commands', (done) => {
+            chai.request(server)
+                .get('/api/commands')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.length.should.be.eql(0);
+                    done();
+                });
+        });
         it('it should GET a Command by the given id', (done) => {
             let cmd = new Command({
                 "command": "moshe",
@@ -92,14 +91,47 @@ describe('Command', () => {
 
         });
     });
+    /*
+   * Test the /POST route
+   */
+    describe('/POST/:id Command', () => {
+        it('it should POST a Command by the given id and update existing record', (done) => {
+            let cmd1 = new Command({
+                "command": "moshe",
+                "isSudoRequired": true,
+                "description": "xczxczc",
+            });
+            let cmd2 = {
+                "command": "moshe2",
+                "isSudoRequired": true,
+                "description": "xczxczc",
+            };
+            cmd1.save((err, cmd) => {
+                chai.request(server)
+                    .post('/api/commands/' + cmd.id)
+                    .send(cmd2)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('command');
+                        res.body.command.should.have.property('ok').eql(1);
+                        res.body.command.should.have.property('n').eql(1);
+                        done();
+                    });
+            });
 
+        });
+    });
+    /*
+    * Test the /DELETE route
+    */
     describe('/DELETE/:id Command', () => {
         it('it should DELETE a Command given the id', (done) => {
             let cmd = new Command({
-                 "command": "moshe",
+                "command": "moshe",
                 "isSudoRequired": true,
                 "description": "xczxczc",
-                "timeoutInMilli":777
+                "timeoutInMilli": 777
             });
             cmd.save((err, book) => {
                 chai.request(server)

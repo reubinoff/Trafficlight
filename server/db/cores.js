@@ -1,9 +1,9 @@
 var winston = require('winston');
 var mongoose = require('mongoose');
-var Connection = mongoose.model('Connection');
+var Core = mongoose.model('Core');
 
-var createConnection = function (ip, user, password, port, cb) {
-    var conn = new Connection({
+var createCore = function (ip, user, password, port, cb) {
+    var conn = new Core({
         ip: ip,
         user: user,
         password: password,
@@ -11,15 +11,15 @@ var createConnection = function (ip, user, password, port, cb) {
     })
 
 
-    Connection.find({ "ip": conn.ip }, function (err, foundConn) {
+    Core.find({ "ip": conn.ip }, function (err, foundConn) {
         if (foundConn.length == 0) {
-            winston.log('Adding new connection to DB');
+            winston.log('Adding new Core to DB');
             conn.save(function (err, rec) {
                 if (err) return next(err);
                 if (cb) cb(rec);
             });
         } else {
-            winston.log('Updating new connection to DB');
+            winston.log('Updating new Core to DB');
             foundConn.modified = conn;
             foundConn[0].save(function (err, rec) {
                 if (err) return next(err);
@@ -29,9 +29,9 @@ var createConnection = function (ip, user, password, port, cb) {
     });
 }
 
-var deleteConnection = function (id) {
+var deleteCore = function (id) {
     return new Promise(function (resolve, reject) {
-        Connection.remove({ _id: id }, function (err, foundConn) {
+        Core.remove({ _id: id }, function (err, foundConn) {
             if (err) reject(err)
             else resolve(foundConn);
         });
@@ -43,7 +43,7 @@ var deleteConnection = function (id) {
 
 var getAll = function () {
     return new Promise(function (resolve, reject) {
-        Connection.find(function (err, foundConn) {
+        Core.find(function (err, foundConn) {
             if (err) reject(err)
             else resolve(foundConn);
         });
@@ -53,7 +53,7 @@ var getAll = function () {
 }
 var getById = function (id) {
     return new Promise(function (resolve, reject) {
-        Connection.findById(id, function (err, foundConn) {
+        Core.findById(id, function (err, foundConn) {
             if (err) reject(err)
             else if (foundConn == null) resolve({})
             else resolve(foundConn);
@@ -63,9 +63,20 @@ var getById = function (id) {
 
 }
 
+var update = function (id, model) {
+    return new Promise(function (resolve, reject) {
+        Core.update({ _id: id }, model, function (err, foundConn) {
+            if (err) reject(err)
+            else resolve(foundConn);
+        });
+    });
+}
 
-module.exports.deleteConnection = deleteConnection;
-module.exports.createConnection = createConnection;
+
+
+
+module.exports.deleteCore = deleteCore;
+module.exports.createCore = createCore;
 module.exports.getAll = getAll;
 module.exports.getById = getById;
 

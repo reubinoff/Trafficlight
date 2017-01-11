@@ -4,7 +4,7 @@ var config = require('../../config')
 var schemas = require('./schemas')
 
 
-mongoose.model('Connection', schemas.Connection);
+mongoose.model('Core', schemas.Core);
 mongoose.model('Command', schemas.Command);
 mongoose.model('Procedure', schemas.Procedure);
 
