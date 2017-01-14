@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import loginArgument from './loginArg';
-import * as actionsCmtsStatus from '../../actions/cmtsStatusActions'
+
 
 
 class CmtsLoginArea extends Component {
   constructor() {
     super();
     this.state = {
-      ip: "r",
+      ip: "",
       password: "",
       user: "",
       port: ""
@@ -56,12 +56,9 @@ class CmtsLoginArea extends Component {
       user: this.state.user,
       port: this.state.port
     }
-    console.log("Adding Core: ", JSON.stringify(loginArgs));
-    actionsCmtsStatus.cmtsConnected(loginArgs);
+    if (this.props.onSubmit)
+      this.props.onSubmit(loginArgs)
     event.preventDefault();
-  }
-  cmtsDisconnected() {
-    actionsCmtsStatus.cmtsDisonnected();
   }
   render() {
 
@@ -71,7 +68,7 @@ class CmtsLoginArea extends Component {
           React.createElement(loginArgument, { onValueChange: this.onIpChange, default: '10.40.22.114', name: 'IP', value: this.state.ip }),
           React.createElement(loginArgument, { onValueChange: this.onUserChange, default: 'ccap', name: 'Username', value: this.state.user }),
           React.createElement(loginArgument, { onValueChange: this.onPasswordChange, default: 'ccap', name: 'Password', value: this.state.password }),
-          React.createElement(loginArgument, { onValueChange: this.onPortChange, default: '2022', name: 'Port' , value: this.state.port}),
+          React.createElement(loginArgument, { onValueChange: this.onPortChange, default: '2022', name: 'Port', value: this.state.port }),
 
           React.createElement('div', { className: 'row' },
             React.createElement('button', { className: 'btn btn-info ', type: 'submit', style: { margin: '20px' } }, "Add Core"),

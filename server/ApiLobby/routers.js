@@ -36,7 +36,7 @@ var CreateRouters = function (app) {
 
     //*** Put ***
     //cores
-    router.put('/api/cores/', api.cores.connect); // /api/Core/ {body}
+    router.put('/api/cores/', api.cores.connect); // /api/Cores/ {body}
     //Commands
     // Create new command only 
     router.put('/api/commands/', api.commands.create); // /api/commands {body}

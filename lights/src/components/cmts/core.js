@@ -3,20 +3,23 @@ import React from "react";
 export default class Core extends React.Component {
   constructor(props) {
     super();
+
   }
 
   render() {
-    const { _id, ip, port } = this.props;
+    const { _id, ip, port, hasPing, hasConnection, description } = this.props;
 
-    const icon = (_id === 33) ? "\u2714" : "\u2716"
+    const hasPingIcon = (hasPing) ? "\u2714" : "\u2716"
+    const hasConnectionIcon = (hasConnection) ? "\u2714" : "\u2716"
 
-    return (
+    return(
       <tr>
-        <th scope="row">{_id}</th>
-        <td>{ip}</td>
-        <td>{port}</td>
-        <td>{icon}</td>
+        <th width="100" scope="row">{ip}</th>
+        <td width="100">{port}</td>
+        <td width="100">{hasPingIcon}</td>
+        <td width="100">{hasConnectionIcon}</td>
+        <td width="200">{description}</td>
       </tr>
     );
+    }
   }
-}

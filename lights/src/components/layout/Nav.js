@@ -18,9 +18,9 @@ export default class Nav extends React.Component {
         const { location } = this.props;
         const { collapsed } = this.state;
         const featuredClass = location.pathname === "/" ? "active" : "";
-        const TempClass = location.pathname.match(/^\/Temp/) ? "active" : "";
+        const CoreSettingsClass = location.pathname.match(/^\/CoreSettings/) ? "active" : "";
         const AboutClass = location.pathname.match(/^\/About/) ? "active" : "";
-        const settingsClass = location.pathname.match(/^\/settings/) ? "active" : "";
+        const AddCoreClass = location.pathname.match(/^\/AddCore/) ? "active" : "";
         const coresClass = location.pathname.match(/^\/cores/) ? "active" : "";
         const navClass = collapsed ? "collapse" : "";
 
@@ -33,8 +33,6 @@ export default class Nav extends React.Component {
                             <span className="icon-bar"></span>
                             <span className="icon-bar"></span>
                             <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
                         </button>
                     </div>
                     <div className={"navbar-collapse " + navClass} id="bs-example-navbar-collapse-1">
@@ -42,17 +40,18 @@ export default class Nav extends React.Component {
                             <li className={featuredClass}>
                                 <IndexLink to="/" onClick={this.toggleCollapse.bind(this)}>Todos</IndexLink>
                             </li>
-                            <li className={TempClass}>
-                                <IndexLink to="Temp" onClick={this.toggleCollapse.bind(this)}>TempClass</IndexLink>
+                        
+                            <li className={AddCoreClass}>
+                                <Link to="addcore" onClick={this.toggleCollapse.bind(this)}>Add Core</Link>
                             </li>
-                            <li className={settingsClass}>
-                                <Link to="settings" onClick={this.toggleCollapse.bind(this)}>Settings</Link>
-                            </li>
-                             <li className={coresClass}>
+                            <li className={coresClass}>
                                 <Link to="cores" onClick={this.toggleCollapse.bind(this)}>Cores</Link>
                             </li>
-                                   <li className={AboutClass}>
-                                <IndexLink to="About" onClick={this.toggleCollapse.bind(this)}>About</IndexLink>
+                                <li className={CoreSettingsClass}>
+                                <Link to="CoreSettings" onClick={this.toggleCollapse.bind(this)}>Core Settings</Link>
+                            </li>
+                            <li className={AboutClass}>
+                                <Link to="About" onClick={this.toggleCollapse.bind(this)}>About</Link>
                             </li>
                         </ul>
                     </div>

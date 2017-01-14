@@ -72,6 +72,14 @@ var update = function (id, model) {
     });
 }
 
+var updateModel = function (model) {
+    return new Promise(function (resolve, reject) {
+        model.save((err, core) => {
+            if (err) reject(err)
+            else resolve(core);
+        });
+    });
+}
 
 
 
@@ -80,4 +88,5 @@ module.exports.createCore = createCore;
 module.exports.getAll = getAll;
 module.exports.getById = getById;
 module.exports.update = update;
+module.exports.updateModel = updateModel;
 

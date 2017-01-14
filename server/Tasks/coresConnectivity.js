@@ -12,22 +12,33 @@ function checkCoresConnectivity() {
                 checkSocket(core).then( // Check socket (and ping)
                     //SUCESS
                     function () {
+                        core.hasPing = true;
+                        updateCoreStatusInDb(core);
                         winston.log("IP: %s Pass", core.ip);
+
+
                     },
                     //ERROR
                     function (err) {
+                        core.hasPing = false;
+                        core.hasConnection = false;
+                        updateCoreStatusInDb(core);
                         winston.warn("IP: %s Fail\n" + err, core.ip);
                     }
                 )
-                .then( //Check SSH
+                    .then( //Check SSH
                     function () {
                         CheckCoreSsh(core).then(
                             //SUCESS
                             function () {
+                                core.hasConnection = true;
+                                updateCoreStatusInDb(core);
                                 winston.log("IP: %s SSH Pass", core.ip);
                             },
                             //ERROR
                             function (err) {
+                                core.hasConnection = false;
+                                updateCoreStatusInDb(core);
                                 winston.warn("IP: %s SSH Fail\n" + err, core.ip);
                             }
 
@@ -41,26 +52,22 @@ function checkCoresConnectivity() {
 
 }
 
+
 function CheckCoreSsh(core) {
     var ip = core.ip, user = core.user, password = core.password, port = core.port;
     return new Promise(function (resolve, reject) {
-        checkSocket(ip, port).then(
+        if (!core.hasPing)
+            reject('No Socket connection')
+        ssh.createConnection(ip, user, password, port)
+            .then(
             //SUCESS
             function () {
-                ssh.createConnection(ip, user, password, port)
-                    .then(
-                    function () {
-                        resolve();
-                    },
-                    function (err) {
-                        reject(err);
-                    });
+                resolve();
             },
             //FAIL
             function (err) {
                 reject(err);
-            }
-        );
+            });
     });
 }
 
@@ -91,6 +98,14 @@ function checkSocket(core, timeout) {
     });
 }
 
-
+function updateCoreStatusInDb(model) {
+    db.cores.updateModel(model).then(
+        function (record) {
+            winston.debug("Update success for core ip %s", model.ip);
+        },
+        function (err) {
+            winston.log(err);
+        });
+}
 
 module.exports = checkCoresConnectivity;

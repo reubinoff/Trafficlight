@@ -5,21 +5,68 @@ export function reloadCores() {
     axios.get("/api/cores")
         .then(sendResponse)
         .catch((error) => {
-            if (error.response) {
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-            }
-            var res = {data:[]};
-            
-            sendResponse(res);
+            printerr(error);
+            sendResponse({ data: [] });
         })
+}
 
+export function AddCore(loginParams) {
+    axios.put("/api/cores", loginParams)
+        .then(updateOnCoreAdded)
+        .catch((error) => {
+            printerr(error);
+            updateOnCoreReject(error);
+        })
+}
 
+export function DeleteCore(id) {
+    axios.delete("/api/cores/id/" + id)
+        .then(updateOnCoreDeleted)
+        .catch((error) => {
+            printerr(error);
+            updateOnCoreReject(error);
+        })
+}
 
+//********************************************************************************** */
+///********************************   Callbacks *************************************/
+//********************************************************************************** */
+function printerr(error) {
+    if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+    }
+}
+function updateOnCoreReject(err) {
+    dispatcher.dispatch(
+        {
+            type: "CORE_PUT",
+            result: false,
+            err: err
+        }
+    );
+}
+function updateOnCoreAdded(res) {
+    dispatcher.dispatch(
+        {
+            type: "CORE_PUT",
+            result: true,
+            id: res.data._id
+        }
+    );
+}
+function updateOnCoreDeleted(res) {
+    console.log(res)
+    dispatcher.dispatch(
+        {
+            type: "CORE_DELETE",
+            result: true,
+            id: res.data._id
+        }
+    );
 }
 function sendResponse(res) {
-
     dispatcher.dispatch(
         {
             type: "RECEIVE_CORES",
@@ -28,4 +75,7 @@ function sendResponse(res) {
     );
 }
 
-
+/*
+"code": 200,
+  "description": "",
+  "id": "5872bf7f6f0179705cb21202"*/

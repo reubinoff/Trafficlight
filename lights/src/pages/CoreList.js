@@ -7,22 +7,22 @@ import Core from "../components/cmts/core";
 class CoreList extends Component {
     constructor() {
         super();
-
+        this.onClickRow.bind(this.onClickRow);
         this.getCores = this.getCores.bind(this);
         this.startTimer = this.startTimer.bind(this);
-        this.timer={};
+        this.timer = {};
         this.state = {
-            cores: coresStore.getAll(),
+            cores: coresStore.getAll()
         };
 
     }
     startTimer() {
-         this.timer = setInterval(this.reloadCores,  3000);
+        this.timer = setInterval(this.reloadCores, 3000);
     }
     componentWillMount() {
         coresStore.on("change", this.getCores);
         this.startTimer();
-        
+
     }
     componentWillUnmount() {
         coresStore.removeListener("change", this.getCores);
@@ -37,26 +37,31 @@ class CoreList extends Component {
         CoreActions.reloadCores();
     }
 
+    onClickRow(e) {
+        console.log(e.target)
+    }
     render() {
 
         const { cores } = this.state;
 
-        const CoreComponents = cores.map((core) => {
-            return <Core key={core._id} _id={core._id} port={core.port} ip={core.ip} />;
-        });
+        const CoreComponents = cores ? cores.map((core) => {
+            return <Core key={core._id} {...core} />;
+        }) : []
         return (
             <div>
                 <h1>Cores List</h1>
-                <table className="table table-responsive">
+
+                <table width="1000" className="table table-striped"  >
                     <thead className="thead-inverse">
                         <tr>
-                            <th>ID</th>
                             <th>IP</th>
                             <th>Port</th>
-                            <th>Connected</th>
+                            <th>Socket</th>
+                            <th>SSH</th>
+                            <th>Description</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody onClick={this.onClickRow}>
                         {CoreComponents}
                     </tbody>
                 </table>

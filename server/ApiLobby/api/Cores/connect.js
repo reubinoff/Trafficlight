@@ -11,7 +11,7 @@ function connect(req, res) {
         return res.status(errors.INVALID_DATA.code).json(general.messages.errorMessage(errors.INVALID_DATA));
     }
 
-    var args = req.body;
+    var args =  req.body;
 
     var ip = args.ip;
     var user = args.user;
