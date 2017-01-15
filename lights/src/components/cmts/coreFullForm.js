@@ -16,6 +16,9 @@ class CoreFullForm extends Component {
         this._deleteCore = this._deleteCore.bind(this)
         this._updateCore = this._updateCore.bind(this)
     }
+    componentWillMount(){
+        
+    }
     _onChange(name, value) {
         console.log(name + " : " + value);
         console.log(this.state);

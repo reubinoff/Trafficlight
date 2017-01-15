@@ -18,7 +18,7 @@ export default class Nav extends React.Component {
         const { location } = this.props;
         const { collapsed } = this.state;
         const featuredClass = location.pathname === "/" ? "active" : "";
-        const CoreSettingsClass = location.pathname.match(/^\/CoreSettings/) ? "active" : "";
+        const CoreSettingsClass = location.pathname.match(/^\/coresettings/) ? "active" : "";
         const AboutClass = location.pathname.match(/^\/About/) ? "active" : "";
         const AddCoreClass = location.pathname.match(/^\/AddCore/) ? "active" : "";
         const coresClass = location.pathname.match(/^\/cores/) ? "active" : "";
@@ -40,23 +40,24 @@ export default class Nav extends React.Component {
                             <li className={featuredClass}>
                                 <IndexLink to="/" onClick={this.toggleCollapse.bind(this)}>Todos</IndexLink>
                             </li>
-                        
+
                             <li className={AddCoreClass}>
                                 <Link to="addcore" onClick={this.toggleCollapse.bind(this)}>Add Core</Link>
                             </li>
                             <li className={coresClass}>
                                 <Link to="cores" onClick={this.toggleCollapse.bind(this)}>Cores</Link>
                             </li>
-                                <li className={CoreSettingsClass}>
+                            <li className={CoreSettingsClass}>
                                 <Link to="CoreSettings" onClick={this.toggleCollapse.bind(this)}>Core Settings</Link>
                             </li>
+
                             <li className={AboutClass}>
                                 <Link to="About" onClick={this.toggleCollapse.bind(this)}>About</Link>
                             </li>
                         </ul>
                     </div>
-                </div>
-            </nav>
+                </div >
+            </nav >
         );
     }
 }
