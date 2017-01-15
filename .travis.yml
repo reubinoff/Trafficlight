@@ -1,5 +1,0 @@
-sudo: true
-services: mongodb
-language: node_js
-node_js:
-  - stable
