@@ -3,3 +3,5 @@ services: mongodb
 language: node_js
 node_js:
   - stable
+service_name: travis-pro
+repo_token: MbY1uomZblKf65RTw7J5oVivnhK5DDljP
