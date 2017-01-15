@@ -4,8 +4,8 @@ const path = require('path');
 var app = express();
 var url = require("url");
 var queryString = require("querystring");
-var db = require('./server/db')
-var serverTasks = require('./server/Tasks/serverTasks')
+var db = require('./src/db')
+var serverTasks = require('./src/Tasks/serverTasks')
 var winston = require('winston');
 
 
@@ -20,7 +20,7 @@ app.use(express.static('lights/build'));
 
 
 // Create http Routers
-var routers = require('./server/ApiLobby/routers')
+var routers = require('./src/ApiLobby/routers')
 routers.CreateRouters(app);
 
 

@@ -31,12 +31,21 @@ class CoresStore extends EventEmitter {
             case "CORE_PUT": {
                 var result = action.result;
                 if (result === true) {
-                    this.emit("core_added",   action.id);
+                    this.emit("core_added", action.id);
                 } else {
-                    this.emit("core_reject",  action.err );
+                    this.emit("core_reject", action.err);
                 }
 
                 this.UpdateStatus(action.cores);
+                break;
+            }
+            case "CORE_DELETE": {
+                var result_delete = action.n
+                if (result_delete === 1) {
+                    this.emit("core_deleted");
+                } else {
+                    this.emit("general_operation_result", action.err);
+                }
                 break;
             }
             default: {

@@ -1,6 +1,6 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var server = require('../index');
+var server = require('../app');
 var should = chai.should();
 
 chai.use(chaiHttp);
@@ -30,7 +30,7 @@ describe('Command', () => {
                 .put('/api/commands')
                 .send(cmd)
                 .end((err, res) => {
-                    res.should.have.status(550);
+                    res.should.have.status(411);
                     res.body.should.be.a('object');
                     res.body.should.have.property('description').eql('Invalid Data');
                     done();

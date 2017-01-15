@@ -1,6 +1,6 @@
 {
     "files": [
-        "server/","lights/"
+        "server/","client/"
     ],
     "exclude": [
         "node_modules"

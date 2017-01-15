@@ -6,6 +6,7 @@ class CoreFullForm extends Component {
     constructor() {
         super();
         this.state = {
+            _id: "",
             ip: "",
             user: "",
             password: "",
@@ -15,18 +16,25 @@ class CoreFullForm extends Component {
         this._onChange = this._onChange.bind(this)
         this._deleteCore = this._deleteCore.bind(this)
         this._updateCore = this._updateCore.bind(this)
+
     }
-    componentWillMount(){
-        
+    componentWillMount() {
+        const { _id } = this.props;
+        this.setState({ _id })
+
     }
+    componentWillUnmount() {
+
+    }
+
     _onChange(name, value) {
         console.log(name + " : " + value);
         console.log(this.state);
-        this.setState({name:value});
+        this.setState({ name: value });
 
     }
     _deleteCore() {
-        CoreActions.DeleteCore('sd');
+        CoreActions.DeleteCore(this.state._id);
         console.log("DELETE")
     }
     _updateCore() {

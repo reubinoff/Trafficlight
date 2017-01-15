@@ -29,14 +29,31 @@ class CoreSettings extends Component {
       activeId: 0,
       selectedCore: ""
     };
+
+    this._onCoreDeleted = this._onCoreDeleted.bind(this)
+    this._onOperationFailed = this._onOperationFailed.bind(this)
   }
   componentWillMount() {
     coresStore.on("change", this.getCores);
-
+    coresStore.on("core_deleted", this._onCoreDeleted);
+    coresStore.on("general_operation_result", this._onOperationFailed);
   }
   componentWillUnmount() {
     coresStore.removeListener("change", this.getCores);
+    coresStore.removeListener("core_deleted", this.onCoreAdded);
+    coresStore.removeListener("general_operation_result", this.onCoreReject);
   }
+  _onCoreDeleted() {
+    alert("Core deletion succeed");
+     var selectedCore = <div />
+      this.setState({ selectedCore });
+      this.reloadCores()
+  }
+  _onOperationFailed(err) {
+    alert("Operation Failed\n"+err);
+
+  }
+
   getCores() {
     this.setState({
       cores: coresStore.getAll(),
@@ -57,7 +74,7 @@ class CoreSettings extends Component {
   render() {
     const { cores } = this.state;
 
-    const CoreComponents = cores? cores.map((core) => {
+    const CoreComponents = cores ? cores.map((core) => {
       return <CoreListItem key={core._id} activeID={this.state.activeId} onClick_={this._onListItemClick} {...core} />;
     }) : [];
     return (

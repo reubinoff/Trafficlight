@@ -1,11 +1,11 @@
 {
-  "name": "traffic-light",
-  "version": "1.0.0",
-  "description": "Check HA",
-  "main": "index.js",
+  "name": "traffic-light-server",
+  "version": "0.0.50",
+  "description": "Check Lab",
+  "main": "app.js",
   "scripts": {
     "test": "NODE_ENV=test mocha --timeout 10000",
-    "start": "node index.js"
+    "start": "node app.js"
   },
   "repository": "https://github.com/reubinoff/Trafficlight",
   "author": "Moshe Reubinoff",
@@ -18,13 +18,13 @@
     "mongoose": "4.7.6",
     "simple-ssh": "0.9.0",
     "merge": "1.2.0",
-    "morgan":"1.7.0",
-    "winston":"2.3.0",
-    "cron":"1.2.1"
+    "morgan": "1.7.0",
+    "winston": "2.3.0",
+    "cron": "1.2.1"
   },
   "devDependencies": {
     "chai": "3.5.0",
     "chai-http": "3.0.0",
-    "mocha": "3.2.0"
+    "mocha": "^3.2.0"
   }
 }

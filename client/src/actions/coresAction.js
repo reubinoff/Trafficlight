@@ -20,11 +20,11 @@ export function AddCore(loginParams) {
 }
 
 export function DeleteCore(id) {
-    axios.delete("/api/cores/id/" + id)
+    axios.delete("/api/cores/" + id)
         .then(updateOnCoreDeleted)
         .catch((error) => {
             printerr(error);
-            updateOnCoreReject(error);
+            updateOnCoreDeletedFailed(error);
         })
 }
 
@@ -56,13 +56,20 @@ function updateOnCoreAdded(res) {
         }
     );
 }
-function updateOnCoreDeleted(res) {
-    console.log(res)
+function updateOnCoreDeletedFailed(err) {
     dispatcher.dispatch(
         {
             type: "CORE_DELETE",
-            result: true,
-            id: res.data._id
+            n: 0,
+            err:err
+        }
+    );
+}
+function updateOnCoreDeleted(res) {
+    dispatcher.dispatch(
+        {
+            type: "CORE_DELETE",
+            n: res.data.Core.n
         }
     );
 }
