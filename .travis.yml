@@ -8,4 +8,4 @@ env:
   - TEST_DIR=server
 script: cd $TEST_DIR && npm install && npm test
   # Send coverage data to Coveralls
-after_script: "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+after_script: cd $TEST_DIR && istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
