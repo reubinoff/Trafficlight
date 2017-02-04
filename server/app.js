@@ -13,7 +13,7 @@ if (process.env.NODE_ENV == 'test') {
     winston.remove(winston.transports.Console);
 }
 
-var pages_path = "build";
+var pages_path = "../www";
 
 app.use(express.static(pages_path));
 winston.log(express.static(pages_path))
