@@ -2,20 +2,23 @@
   "name": "lights",
   "version": "0.1.0",
   "private": true,
+  "homepage":"https://github.com/reubinoff/Trafficlight",
+  "repository": "https://github.com/reubinoff/Trafficlight",
+  "author": "Moshe Reubinoff",
   "devDependencies": {
     "babel-plugin-react-html-attrs": "^2.0.0",
     "react-scripts": "0.8.4"
   },
   "proxy": "http://localhost:8081/",
-
   "dependencies": {
+    "create-react-app": "1.0.3",
     "flux": "^2.1.1",
     "history": "^2.1.2",
     "react": "15.4.2",
     "react-dom": "15.4.2",
     "react-router": "3.0.0",
     "axios": "^0.15.3",
-    "fixed-data-table":"0.6.3"
+    "fixed-data-table": "0.6.3"
   },
   "scripts": {
     "start": "react-scripts start",
