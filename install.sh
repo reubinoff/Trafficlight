@@ -34,7 +34,7 @@ sudo git clone --depth=50 --branch=master  http://github.com/reubinoff/trafficli
 
 cd $APP_PATH/server
 sudo npm install
-
+sudo npm test
 
 echo Adding application to systemd
 sudo cp $APP_PATH/server/traffic-light.service /etc/systemd/system/
