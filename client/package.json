@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && rm -rf ../www/ && mkdir ../www &&  cp -r ./build/* ../www",
+    "build": "react-scripts build &&  cp -r ./build/* ../www",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }

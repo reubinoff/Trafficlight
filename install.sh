@@ -3,6 +3,7 @@
 APP_PATH=/opt/traffic_light
 SERVER_PATH=$APP_PATH/server
 CLIENT_PATH=$APP_PATH/client
+WWW_PATH=$APP_PATH/www
 NGINX_CONF=/etc/nginx/sites-available/default
 
 #adding mongodb source
@@ -49,6 +50,7 @@ cd $SERVER_PATH
 sudo npm install
 cd $CLIENT_PATH
 sudo npm install
+sudo mkdir $WWW_PATH
 sudo npm run build
 
 #adding app to systemd
