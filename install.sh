@@ -57,6 +57,14 @@ sudo cp $SERVER_PATH/traffic-light.service /etc/systemd/system/
 
 sudo service mongod start
 
+# run test
+cd $SERVER_PATH
 sudo npm test #running test before starting the server
+
+
 sudo systemctl enable traffic-light.service
+sudo systemctl start nginx
 sudo systemctl start traffic-light.service
+
+echo traffic-light successfuly installed!!
+exit 1

@@ -45,7 +45,7 @@ var getAll = function () {
     return new Promise(function (resolve, reject) {
         Core.find(function (err, foundConn) {
             if (err) reject(err)
-            else resolve(foundConn);
+            else resolve(foundConn.sort('ip'));
         });
     });
 

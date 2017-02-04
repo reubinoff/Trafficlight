@@ -46,7 +46,13 @@ var CreateRouters = function (app) {
 
 
     //*** POST ***
-    //Commands
+    //Mock
+    router.post('/api/commands/debug', api.commands.debug); // /api/commands/5872567214aae01071781368 {body}
+    router.post('/api/cores/debug', api.cores.debug); // /api/commands/5872567214aae01071781368 {body}
+
+
+
+
     // update command only
     router.post('/api/commands/:id', api.commands.update); // /api/commands/5872567214aae01071781368 {body}
     //Procedures

@@ -3,7 +3,7 @@ var checkCoresConnectivity = require('./coresConnectivity');
 var cron = require('cron');
 
 var tasks = []
-AddTask(5,checkCoresConnectivity);
+AddTask(1,checkCoresConnectivity);
 
 
 
@@ -18,13 +18,12 @@ AddTask(5,checkCoresConnectivity);
 
 ///////////////////////// ********************* /////////////////////////
 
-
-
 function AddTask(everyXseconds, CB) {
     var task = new cron.CronJob({
         cronTime: '*/'+everyXseconds+' * * * * *',
         onTick: CB,
-        start: true
+        start: true,
+        context: {task :1}
     });
     tasks.push(task);
 }

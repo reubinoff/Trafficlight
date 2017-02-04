@@ -15,8 +15,6 @@ function checkCoresConnectivity() {
                         core.hasPing = true;
                         updateCoreStatusInDb(core);
                         winston.log("IP: %s Pass", core.ip);
-
-
                     },
                     //ERROR
                     function (err) {
@@ -26,24 +24,23 @@ function checkCoresConnectivity() {
                         winston.warn("IP: %s Fail\n" + err, core.ip);
                     }
                 )
-                    .then( //Check SSH
-                    function () {
-                        CheckCoreSsh(core).then(
-                            //SUCESS
-                            function () {
-                                core.hasConnection = true;
-                                updateCoreStatusInDb(core);
-                                winston.log("IP: %s SSH Pass", core.ip);
-                            },
-                            //ERROR
-                            function (err) {
-                                core.hasConnection = false;
-                                updateCoreStatusInDb(core);
-                                winston.warn("IP: %s SSH Fail\n" + err, core.ip);
-                            }
+                if (core.hasPing) {
+                    CheckCoreSsh(core).then(
+                        //SUCESS
+                        function () {
+                            core.hasConnection = true;
+                            updateCoreStatusInDb(core);
+                            winston.log("IP: %s SSH Pass", core.ip);
+                        },
+                        //ERROR
+                        function (err) {
+                            core.hasConnection = false;
+                            updateCoreStatusInDb(core);
+                            winston.warn("IP: %s SSH Fail\n" + err, core.ip);
+                        }
+                    );
+                }
 
-                        );
-                    });
             });
         },
         function (err) {
@@ -78,7 +75,7 @@ function checkSocket(core, timeout) {
         if (process.env.NODE_ENV == 'test') {
             resolve();
         }
-        timeout = timeout || 5000;
+        timeout = timeout || 3000;
         var socket = {};
         try {
             var timer = setTimeout(function () {
