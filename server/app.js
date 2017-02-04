@@ -13,10 +13,10 @@ if (process.env.NODE_ENV == 'test') {
     winston.remove(winston.transports.Console);
 }
 
-var pages_path = "lights/build";
+var pages_path = "build";
 
-app.use(express.static('lights/build'));
-
+app.use(express.static(pages_path));
+winston.log(express.static(pages_path))
 
 
 // Create http Routers
@@ -27,12 +27,12 @@ routers.CreateRouters(app);
 
 
 //Start Server Listener
-var server = app.listen(config.web.port, function () {
+var server = app.listen(config.web.port,config.web.host, function () {
 
     var host = server.address().address
     var port = server.address().port
 
-    winston.info("Example app listening at http://%s:%s", host, port)
+    winston.info("listening at http://%s:%s", host, port)
 
 })
 
