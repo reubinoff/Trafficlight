@@ -2,6 +2,7 @@
   "name": "lights",
   "version": "0.1.0",
   "private": true,
+  "homepage": "../www",
   "repository": "https://github.com/reubinoff/Trafficlight",
   "author": "Moshe Reubinoff",
   "devDependencies": {

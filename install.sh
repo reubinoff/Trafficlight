@@ -9,6 +9,8 @@ NGINX_CONF=/etc/nginx/sites-available/default
 #adding mongodb source
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
 echo "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.4 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
 
 echo Start Installation
 sudo apt-get update
@@ -17,9 +19,11 @@ sudo apt-get --quiet --assume-yes install curl
 
 # installing nodejs
 echo installing NodeJS
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
 sudo apt-get install -y nodejs
 sudo apt-get --quiet --assume-yes install npm
+sudo apt-get install yarn
 
 #installing build tools
 echo installing  build-essential
