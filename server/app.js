@@ -8,6 +8,7 @@ var db = require('./src/db')
 var serverTasks = require('./src/Tasks/serverTasks')
 var winston = require('winston');
 
+console.log(__dirname)
 
 if (process.env.NODE_ENV == 'test') {
     winston.remove(winston.transports.Console);
@@ -18,7 +19,7 @@ if (process.env.NODE_ENV == 'test') {
     humanReadableUnhandledException: true
   });
 
-var pages_path = "../www";
+var pages_path = __dirname +"./../www";
 
 app.use(express.static(pages_path));
 winston.log(express.static(pages_path))
