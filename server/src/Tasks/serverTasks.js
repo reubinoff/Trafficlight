@@ -3,7 +3,7 @@ var checkCoresConnectivity = require('./coresConnectivity');
 var cron = require('cron');
 
 var tasks = []
-AddTask(10,checkCoresConnectivity);
+// AddTask(10,checkCoresConnectivity);
 
 
 
