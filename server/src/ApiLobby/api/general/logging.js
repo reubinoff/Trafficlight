@@ -1,4 +1,6 @@
 var util = require('util');
+var winston = require('winston');
+
 process.env.test
 module.exports.timestamp = timestamp;
 module.exports.logErrors = logErrors;
