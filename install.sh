@@ -50,23 +50,32 @@ sudo mv $SERVER_PATH/nginx.conf $NGINX_CONF
 # install NPM packages
 cd $SERVER_PATH
 sudo npm install
+sudo npm install pm2 -g
+
 cd $CLIENT_PATH
 sudo npm install
 sudo mkdir $WWW_PATH
 sudo npm run build
 
 #adding app to systemd
-echo Adding application to systemd
-sudo cp $SERVER_PATH/traffic-light.service /etc/systemd/system/
+#echo Adding application to systemd
+#sudo cp $SERVER_PATH/traffic-light.service /etc/systemd/system/
 
 sudo service mongod start
+
+
+
 
 # run test
 cd $SERVER_PATH
 sudo npm test #running test before starting the server
 
+# adding to process manager
+cd $SERVER_PATH
+pm2 start app.js -i max 
 
-sudo systemctl enable traffic-light.service
+
+#sudo systemctl enable traffic-light.service
 sudo systemctl start nginx
 sudo systemctl start traffic-light.service
 

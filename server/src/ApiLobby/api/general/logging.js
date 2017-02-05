@@ -7,13 +7,13 @@ module.exports.errorHandler = errorHandler;
 
 function timestamp(req, res, next) {
   if (process.env.NODE_ENV != 'test')
-    console.log(util.format('%s>> api: %s %s', Date.now(), JSON.stringify(req.body)));
+    winston.log(util.format('%s>> api: %s %s', Date.now(), JSON.stringify(req.body)));
   next()
 }
 
 
 function logErrors(err, req, res, next) {
-  console.error(err.stack)
+  winston.error(err.stack)
   next(err)
 }
 function clientErrorHandler(err, req, res, next) {
