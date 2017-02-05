@@ -12,6 +12,11 @@ var winston = require('winston');
 if (process.env.NODE_ENV == 'test') {
     winston.remove(winston.transports.Console);
 }
+ winston.add(winston.transports.File, {
+    filename: config.log.path,
+    handleExceptions: true,
+    humanReadableUnhandledException: true
+  });
 
 var pages_path = "../www";
 
