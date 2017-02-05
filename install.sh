@@ -61,6 +61,7 @@ sudo npm run build
 echo Adding application to systemd
 sudo cp $SERVER_PATH/traffic-light.service /etc/systemd/system/
 
+sudo systemctl enable mongod.service
 sudo service mongod start
 
 
