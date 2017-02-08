@@ -1,7 +1,7 @@
 var SSH = require('simple-ssh');
 
 
-export function getClient(core) {
+ function getClient(core) {
     var ssh = new SSH({
         host: core.ip,
         user: core.user,
@@ -11,3 +11,5 @@ export function getClient(core) {
     });
 
 }
+
+module.exports = getClient;
