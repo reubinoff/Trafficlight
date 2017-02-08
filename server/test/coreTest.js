@@ -23,8 +23,8 @@ describe('Core', () => {
     describe('/PUT Core', () => {
         it('it should not PUT a Core without ip field', (done) => {
             let conn = {
-                "user": "mreubino",
-                "password": "Napster1_0911",
+                "user": "myUser",
+                "password": "s1",
                 "port": 22
             }
             chai.request(server)
@@ -41,8 +41,8 @@ describe('Core', () => {
         it('it should PUT a Core ', (done) => {
             let conn = {
                 "ip": "192.18.1.4",
-                "user": "mreubino",
-                "password": "Napster1_0911",
+                "user": "myUser",
+                "password": "911",
                 "port": 22
             }
             chai.request(server)
@@ -53,6 +53,29 @@ describe('Core', () => {
                     res.should.be.json;
                     res.body.should.be.a('object');
                     res.body.should.have.property('ip');
+                    res.body.should.have.property('_id');
+                    res.body.should.have.property('hasConnection').eql(false);
+                    res.body.should.have.property('hasPing').eql(false);
+                    done();
+                });
+        });
+
+        it('it should PUT a Core and update existing one', (done) => {
+            let conn = {
+                "ip": "192.18.1.4",
+                "user": "myUser_2",
+                "password": "911",
+                "port": 22
+            }
+            chai.request(server)
+                .put('/api/Cores')
+                .send(conn)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.should.be.json;
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('ip');
+                    res.body.should.have.property('user').eql(conn.user);
                     res.body.should.have.property('_id');
                     res.body.should.have.property('hasConnection').eql(false);
                     res.body.should.have.property('hasPing').eql(false);
@@ -100,13 +123,13 @@ describe('Core', () => {
    */
     describe('/POST/:id Command', () => {
         it('it should POST a Command by the given id and update existing record', (done) => {
-                let conn1 = new Core({
+            let conn1 = new Core({
                 "ip": "192.18.1.4",
                 "user": "myUser",
                 "password": "myPassword",
                 "port": 22
             });
-             let conn2 = {
+            let conn2 = {
                 "ip": "192.18.1.5",
                 "user": "mreubino",
                 "password": "Napster1_0911",
@@ -135,8 +158,8 @@ describe('Core', () => {
         it('it should DELETE a Core given the id', (done) => {
             let conn = new Core({
                 "ip": "192.18.1.4",
-                "user": "mreubino",
-                "password": "Napster1_0911",
+                "user": "smreuddbino",
+                "password": "Nas1",
                 "port": 22
             });
             conn.save((err, book) => {

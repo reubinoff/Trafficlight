@@ -6,11 +6,9 @@ var Command = mongoose.model('Command');
 var create = function (procedure) {
     return new Promise(function (resolve, reject) {
         var pro = new Procedure(procedure)
-        pro.save(function (err, rec) {
-            if (err) reject(err);
-            else resolve(pro);
-        });
-
+        pro.save()
+            .then((pro) => { resolve(pro) })
+            .catch((err) => { reject(err) })
     });
 }
 
