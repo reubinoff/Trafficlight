@@ -1,3 +1,5 @@
 module.exports = {
-  createConnection: require('./createConnection')
+  checkConnection: require('./checkConnection'),
+  runCommand: require('./runCommand'),
+  runProcedure: require('./runProcedure')
 }
