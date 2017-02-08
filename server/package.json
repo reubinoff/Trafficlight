@@ -1,6 +1,6 @@
 {
   "name": "traffic-light-server",
-  "version": "0.0.50",
+  "version": "0.1.50",
   "description": "Check Lab",
   "main": "app.js",
   "scripts": {
