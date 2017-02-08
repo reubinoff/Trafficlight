@@ -34,7 +34,7 @@ class Settings extends Component {
   render() {
     return (
       <div>
-        <h1>Settings</h1>
+        <h1>Parameters</h1>
         <CoreLogin onSubmit={this.OnAddCoreSubmit} />
       </div>
     );

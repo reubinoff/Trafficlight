@@ -6,8 +6,12 @@ class About extends Component {
   render() {
     return (
       <div>
-      <h1>About</h1>
+        <h1>About</h1>
+        <div>
+          <p> Tool to manage and control servers</p>
+        </div>
       </div>
+
     );
   }
 }

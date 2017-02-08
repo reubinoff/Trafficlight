@@ -25,9 +25,9 @@ class CoreFullForm extends Component {
 
     }
     componentWillMount() {
-        const { _id } = this.props;
+        const { _id, ip} = this.props;
         this.setState({ _id })
-
+        this.setState({ ip })
     }
     componentWillUnmount() {
 
@@ -42,11 +42,11 @@ class CoreFullForm extends Component {
 
     _deleteCore() {
         CoreActions.DeleteCore(this.state._id);
-        console.log("DELETE core: "+this.state.ip)
+        console.log("DELETE core: " + this.state.ip)
     }
     _updateCore() {
         CoreActions.UpdateCore(this.state);
-        console.log("UPDATE core: "+this.state.ip)
+        console.log("UPDATE core: " + this.state.ip)
     }
     render() {
         const { ip,

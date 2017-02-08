@@ -60,6 +60,7 @@ class CoreList extends Component {
                             <th>Port</th>
                             <th>Socket</th>
                             <th>SSH</th>
+                            <th>Owner</th>
                             <th>Description</th>
                         </tr>
                     </thead>
