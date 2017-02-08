@@ -6,7 +6,7 @@
   "scripts": {
     "test": "NODE_ENV=test mocha --timeout 10000",
     "start": "NODE_ENV=DEBUG  sudo nodejs app.js",
-    "worker": "NODE_ENV=DEBUG sudo nodejs app_worker.js"
+    "debug": "NODE_ENV=WORKER  sudo nodejs app.js"
     
   },
   "repository": "https://github.com/reubinoff/Trafficlight",

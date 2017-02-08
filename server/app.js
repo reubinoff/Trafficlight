@@ -16,13 +16,13 @@ console.log(__dirname)
 if (process.env.NODE_ENV == 'test') {
     winston.remove(winston.transports.Console);
 }
- winston.add(winston.transports.File, {
+winston.add(winston.transports.File, {
     filename: config.log.path,
     handleExceptions: true,
     humanReadableUnhandledException: true
-  });
+});
 
-var pages_path = __dirname +"./../www";
+var pages_path = __dirname + "./../www";
 
 app.use(express.static(pages_path));
 winston.log(express.static(pages_path))
@@ -36,7 +36,7 @@ routers.CreateRouters(app);
 
 
 //Start Server Listener
-var server = app.listen(config.web.port,config.web.host, function () {
+var server = app.listen(config.web.port, config.web.host, function () {
 
     var host = server.address().address
     var port = server.address().port
@@ -46,8 +46,10 @@ var server = app.listen(config.web.port,config.web.host, function () {
 })
 
 
+if (process.env.NODE_ENV != 'WORKER') {
+    // Start worker
+    var worker = fork('./app_worker.js');
+}
 
-// Start worker
-var worker = fork('./app_worker.js');
 
 module.exports = app;
