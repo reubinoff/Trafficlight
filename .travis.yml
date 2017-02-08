@@ -1,5 +1,7 @@
 sudo: true
-services: mongodb ,redis
+services: 
+- mongodb
+- redis-server
 language: node_js
 node_js:
   - stable
