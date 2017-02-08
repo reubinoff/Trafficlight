@@ -1,7 +1,7 @@
 // import { EventEmitter } from "events"
 // import dispatcher from '../dispatcher'
 
-// class CmtsStatus extends EventEmitter {
+// class CoreStatus extends EventEmitter {
 
 //     constructor() {
 
@@ -24,7 +24,7 @@
 
 //     handleActions(action) {
 //         switch (action.type) {
-//             case "CMTS_STATUS_CHANGE": {
+//             case "Core_STATUS_CHANGE": {
 //                 this.UpdateStatus(action.text);
 //                 break;
 //             }

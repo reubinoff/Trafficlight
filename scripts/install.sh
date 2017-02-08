@@ -34,6 +34,12 @@ sudo mkdir /data
 sudo mkdir /data/db
 sudo chown $USER /data/db
 
+
+#install Redis
+sudo apt-get --quiet --assume-yes install redis-server -y  
+
+
+
 # installing Git
 echo installing git
 sudo apt-get --quiet --assume-yes install git

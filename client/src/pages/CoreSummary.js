@@ -1,15 +1,15 @@
 
 import React, { Component } from 'react';
 
-class CmtsSummary extends Component {
+class CoreSummary extends Component {
 
   render() {
     return (
       <div>
-      <h1>CmtsSummary</h1>
+      <h1>CoreSummary</h1>
       </div>
     );
   }
 }
 
-export default CmtsSummary;
+export default CoreSummary;

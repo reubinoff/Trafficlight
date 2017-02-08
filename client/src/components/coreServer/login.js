@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LoginArg from "./loginArg"
 
-class CmtsLogin extends Component {
+class CoreLogin extends Component {
 
     constructor() {
         super();
@@ -72,4 +72,4 @@ class CmtsLogin extends Component {
     }
 }
 
-export default CmtsLogin;
+export default CoreLogin;

@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 import coresStore from '../stores/coresStore'
 import * as CoreActions from "../actions/coresAction";
-import CoreListItem from "../components/cmts/CoreListItem";
-import CoreFullForm from "../components/cmts/coreFullForm";
+import CoreListItem from "../components/coreServer/CoreListItem";
+import CoreFullForm from "../components/coreServer/coreFullForm";
 
 
 let styles = {
@@ -14,15 +14,14 @@ let styles = {
   },
   form_row: {
     'overflowY': 'scroll',
-    'maxHeight': '370px'
+    'maxHeight': '400px'
   }
 }
 
 class CoreSettings extends Component {
   constructor() {
     super();
-    this.getCores = this.getCores.bind(this);
-    this._onListItemClick = this._onListItemClick.bind(this);
+    ;
 
     this.state = {
       cores: coresStore.getAll(),
@@ -30,27 +29,37 @@ class CoreSettings extends Component {
       selectedCore: ""
     };
 
+    this.getCores = this.getCores.bind(this);
+    this._onListItemClick = this._onListItemClick.bind(this)
     this._onCoreDeleted = this._onCoreDeleted.bind(this)
     this._onOperationFailed = this._onOperationFailed.bind(this)
+    this._onCoreUpdated=this._onCoreUpdated.bind(this);
   }
   componentWillMount() {
     coresStore.on("change", this.getCores);
     coresStore.on("core_deleted", this._onCoreDeleted);
+    coresStore.on("core_updated", this._onCoreUpdated);
     coresStore.on("general_operation_result", this._onOperationFailed);
   }
   componentWillUnmount() {
     coresStore.removeListener("change", this.getCores);
-    coresStore.removeListener("core_deleted", this.onCoreAdded);
-    coresStore.removeListener("general_operation_result", this.onCoreReject);
+    coresStore.removeListener("core_deleted", this._onCoreDeleted);
+    coresStore.removeListener("core_updated", this._onCoreUpdated);
+    coresStore.removeListener("general_operation_result", this._onOperationFailed);
+  }
+
+  _onCoreUpdated(){
+    alert ("Core updated!")
+     this.reloadCores()
   }
   _onCoreDeleted() {
     alert("Core deletion succeed");
-     var selectedCore = <div />
-      this.setState({ selectedCore });
-      this.reloadCores()
+    var selectedCore = <div />
+    this.setState({ selectedCore });
+    this.reloadCores()
   }
   _onOperationFailed(err) {
-    alert("Operation Failed\n"+err);
+    alert("Operation Failed\n" + err);
 
   }
 

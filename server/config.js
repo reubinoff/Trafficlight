@@ -4,9 +4,15 @@ var config = {};
 config.mongo = {};
 config.web = {};
 config.log = {};
+config.general = {};
 
-if (process.env.NODE_ENV == 'test') {
-    config.mongo.uri = 'mongodb://localhost:27017/cmts'
+config.general.queues = {};
+config.general.queues.worker_keepalive = 'worker_keepalive';
+config.general.queues.monitoring = 'core_monitoring';
+config.general.monitoringIntervalMilliSec = '3000';
+
+if (process.env.NODE_ENV != 'test') {
+    config.mongo.uri = 'mongodb://localhost:27017/traffic-light'
 } else {
     config.mongo.uri = 'mongodb://localhost:27017/test'
 }

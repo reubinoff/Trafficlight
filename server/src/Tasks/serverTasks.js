@@ -1,38 +1,18 @@
+var winston = require('winston');
+var checkCoresConnectivity = require('./coresConnectivityTask');
+var config = require('../../config');
 
-var checkCoresConnectivity = require('./coresConnectivity');
-var cron = require('cron');
+var kue = require('kue')
 
-var tasks = []
-// AddTask(10,checkCoresConnectivity);
+var Queue = kue.createQueue();
 
-
-
-
-
-
-
-
-
-
-
-
-///////////////////////// ********************* /////////////////////////
-
-function AddTask(everyXseconds, CB) {
-    var task = new cron.CronJob({
-        cronTime: '*/'+everyXseconds+' * * * * *',
-        onTick: CB,
-        start: true,
-        context: {task :1}
+Queue.process(config.general.queues.worker_keepalive, () => {
+    winston.info('Worker keep alive recieved')
+    var job = Queue.create(config.general.queues.monitoring, {
+        intervalInMilliSeconds: config.general.monitoringIntervalMilliSec
+    }).priority('normal').save(function (err) {
+        if (!err) winston.info("Adding monitoring job. jobId=" + job.id);
     });
-    tasks.push(task);
-}
+})
 
-/*
-Seconds: 0-59
-Minutes: 0-59
-Hours: 0-23
-Day of Month: 1-31
-Months: 0-11
-Day of Week: 0-6
-*/
+

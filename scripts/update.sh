@@ -11,7 +11,6 @@ NGINX_CONF=/etc/nginx/sites-available/default
 #stop service
 sudo systemctl stop traffic-light.service
 
-
 #update git resources
 cd $SERVER_PATH
 sudo git pull

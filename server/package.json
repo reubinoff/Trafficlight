@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "NODE_ENV=test mocha --timeout 10000",
-    "start": "nodejs app.js"
+    "start": "NODE_ENV=DEBUG  sudo nodejs app.js",
+    "worker": "NODE_ENV=DEBUG sudo nodejs app_worker.js"
+    
   },
   "repository": "https://github.com/reubinoff/Trafficlight",
   "author": "Moshe Reubinoff",
@@ -21,7 +23,9 @@
     "morgan": "1.7.0",
     "winston": "2.3.0",
     "cron": "1.2.1",
-    "bluebird": "3.4.7"
+    "bluebird": "3.4.7",
+    "kue":"0.11.5",
+    "socketio":"1.0.0"
   },
   "devDependencies": {
     "chai": "3.5.0",

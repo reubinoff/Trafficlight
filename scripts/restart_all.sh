@@ -13,10 +13,11 @@ sudo systemctl stop traffic-light.service
 sudo systemctl stop mongod.service
 sudo systemctl stop nginx
 
+sleep 0.5
 
 #start service
-sudo systemctl start mongod.service
 sudo systemctl start nginx
+sudo systemctl start mongod.service
 sudo systemctl start traffic-light.service
 
 

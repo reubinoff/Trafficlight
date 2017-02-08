@@ -5,6 +5,11 @@ var ssh = require('../ssh')
 var winston = require('winston');
 var Promise = require('bluebird');
 
+const eventEmitter = require('events');
+class EventsObj extends eventEmitter{};
+var eventsObj = new EventsObj();
+
+
 function checkCoresConnectivity() {
     db.cores.getAll().then(
         function (records) {
@@ -13,14 +18,14 @@ function checkCoresConnectivity() {
                     //SUCESS
                     function () {
                         core.hasPing = true;
-                        updateCoreStatusInDb(core);
+                        eventsObj.emit('update_core_status',core);
                         winston.log("IP: %s Pass", core.ip);
                     },
                     //ERROR
                     function (err) {
                         core.hasPing = false;
                         core.hasConnection = false;
-                        updateCoreStatusInDb(core);
+                        eventsObj.emit('update_core_status',core);
                         winston.warn("IP: %s Fail\n" + err, core.ip);
                     }
                 )
@@ -29,18 +34,17 @@ function checkCoresConnectivity() {
                         //SUCESS
                         function () {
                             core.hasConnection = true;
-                            updateCoreStatusInDb(core);
+                            eventsObj.emit('update_core_status',core);
                             winston.log("IP: %s SSH Pass", core.ip);
                         },
                         //ERROR
                         function (err) {
                             core.hasConnection = false;
-                            updateCoreStatusInDb(core);
+                            eventsObj.emit('update_core_status',core);
                             winston.warn("IP: %s SSH Fail\n" + err, core.ip);
                         }
                     );
                 }
-
             });
         },
         function (err) {
@@ -95,14 +99,16 @@ function checkSocket(core, timeout) {
     });
 }
 
-function updateCoreStatusInDb(model) {
+eventsObj.on('update_core_status', (model) => {
+    winston.log('update status for core: '+ model.ip)
     db.cores.updateModel(model).then(
         function (record) {
             winston.debug("Update success for core ip %s", model.ip);
         },
         function (err) {
-            winston.log(err);
+            winston.error(err);
         });
-}
+});
+
 
 module.exports = checkCoresConnectivity;

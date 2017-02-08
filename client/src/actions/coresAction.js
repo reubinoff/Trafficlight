@@ -28,6 +28,18 @@ export function DeleteCore(id) {
         })
 }
 
+export function UpdateCore(coreparams) {
+    Object.keys(coreparams).forEach(k => (!coreparams[k] && coreparams[k] !== undefined) && delete coreparams[k]);
+    axios.post("/api/cores/" + coreparams._id,coreparams)
+        .then(updateOnCoreUpdated)
+        .catch((error) => {
+            printerr(error);
+            updateOnCoreDeletedFailed(error);
+        })
+
+}
+
+
 //********************************************************************************** */
 ///********************************   Callbacks *************************************/
 //********************************************************************************** */
@@ -56,12 +68,24 @@ function updateOnCoreAdded(res) {
         }
     );
 }
+
+function updateOnCoreUpdated(res) {
+    dispatcher.dispatch(
+        {
+            type: "CORE_POST",
+            result: true,
+            n: res.data.core.n
+        }
+    );
+
+}
+
 function updateOnCoreDeletedFailed(err) {
     dispatcher.dispatch(
         {
             type: "CORE_DELETE",
             n: 0,
-            err:err
+            err: err
         }
     );
 }

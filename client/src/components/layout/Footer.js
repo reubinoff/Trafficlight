@@ -33,7 +33,7 @@ export default class Footer extends React.Component {
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
               <form className="navbar-form navbar-right" role="search">
                 <div className="col-lg-12">
-                  <LoginState status={this.state.cmts_status} />
+                  <LoginState status={this.state.core_status} />
                 </div>
               </form>
               <form className="navbar-form navbar-left" role="search">

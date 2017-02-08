@@ -17,7 +17,7 @@ export default class InputField extends Component {
         var value = e.target.value;
         this.setState({ value });
         if (this.props.onValueChange)
-            this.props.onValueChange(this.props.name, value);
+            this.props.onValueChange(value);
     }
     render() {
 

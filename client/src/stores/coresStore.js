@@ -28,6 +28,15 @@ class CoresStore extends EventEmitter {
                 this.UpdateStatus(action.cores);
                 break;
             }
+            case "CORE_POST":{
+                var result_n = action.n;
+                if (result_n === 1) {
+                   this.emit("core_updated");
+                } else {
+                    this.emit("general_operation_result", action.err);
+                }
+                break;
+            }
             case "CORE_PUT": {
                 var result = action.result;
                 if (result === true) {
@@ -62,5 +71,5 @@ class CoresStore extends EventEmitter {
 
 const coresStore = new CoresStore();
 dispatcher.register(coresStore.handleActions.bind(coresStore));
-window.dis = dispatcher; //dis.dispatch({type: "CMTS_STATUS_CHANGE", text:"1"})
+window.dis = dispatcher; 
 export default coresStore;

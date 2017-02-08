@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import CmtsLogin from '../components/cmts/CmtsLoginArea'
+import CoreLogin from '../components/coreServer/CoreLoginArea'
 import * as coresAction from '../actions/coresAction'
 import coresStore from '../stores/coresStore'
 
@@ -35,7 +35,7 @@ class Settings extends Component {
     return (
       <div>
         <h1>Settings</h1>
-        <CmtsLogin onSubmit={this.OnAddCoreSubmit} />
+        <CoreLogin onSubmit={this.OnAddCoreSubmit} />
       </div>
     );
   }

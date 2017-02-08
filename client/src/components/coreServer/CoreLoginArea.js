@@ -3,7 +3,7 @@ import loginArgument from './loginArg';
 
 
 
-class CmtsLoginArea extends Component {
+class CoreLoginArea extends Component {
   constructor() {
     super();
     this.state = {
@@ -80,4 +80,4 @@ class CmtsLoginArea extends Component {
   }
 }
 
-export default CmtsLoginArea;
+export default CoreLoginArea;

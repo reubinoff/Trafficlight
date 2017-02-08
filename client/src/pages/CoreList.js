@@ -2,22 +2,24 @@
 import React, { Component } from 'react';
 import coresStore from '../stores/coresStore'
 import * as CoreActions from "../actions/coresAction";
-import Core from "../components/cmts/core";
+import Core from "../components/coreServer/core";
 
 class CoreList extends Component {
     constructor() {
         super();
         this.onClickRow.bind(this.onClickRow);
         this.getCores = this.getCores.bind(this);
-        this.startTimer = this.startTimer.bind(this);
+        this.reloadCores = this.reloadCores.bind(this);
         this.timer = {};
         this.state = {
-            cores: coresStore.getAll()
+            cores: coresStore.getAll(),
+            timer:-1
         };
 
     }
     startTimer() {
-        this.timer = setInterval(this.reloadCores, 3000);
+        var timer = setInterval(this.reloadCores, 3000);
+        this.setState({timer})
     }
     componentWillMount() {
         coresStore.on("change", this.getCores);
@@ -26,7 +28,7 @@ class CoreList extends Component {
     }
     componentWillUnmount() {
         coresStore.removeListener("change", this.getCores);
-        clearInterval(this.timer);
+        clearInterval(this.state.timer);
     }
     getCores() {
         this.setState({
