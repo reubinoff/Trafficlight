@@ -9,24 +9,31 @@ var createCore = function (ip, user, password, port, cb) {
         password: password,
         port: port,
     })
+    Core.find({ "ip": conn.ip })
+        .then((foundConn) => {
+            if (foundConn.length == 0) {
+                winston.info('Adding new Core to DB');
+                conn.save()
+                    .then((rec) => {
+                        if (cb) cb(rec);
+                    })
+                    .catch((err) => {
+                        return next(err);
+                    });
 
-
-    Core.find({ "ip": conn.ip }, function (err, foundConn) {
-        if (foundConn.length == 0) {
-            winston.log('Adding new Core to DB');
-            conn.save(function (err, rec) {
-                if (err) return next(err);
-                if (cb) cb(rec);
-            });
-        } else {
-            winston.log('Updating new Core to DB');
-            foundConn.modified = conn;
-            foundConn[0].save(function (err, rec) {
-                if (err) return next(err);
-                if (cb) cb(rec);
-            });
-        }
-    });
+            } else {
+                winston.info('Updating new Core to DB');
+                foundConn.modified = conn;
+                foundConn[0].save()
+                    .then((rec) => {
+                        if (cb) cb(rec);
+                    })
+                    .catch((err) => {
+                        return next(err);
+                    });
+            }
+        })
+        .catch((err) => { console.log('error!!!!!'); });
 }
 
 var deleteCore = function (id) {
@@ -43,14 +50,15 @@ var deleteCore = function (id) {
 
 var getAll = function () {
     return new Promise(function (resolve, reject) {
-        Core.find(function (err, foundConn) {
-            if (err) reject(err)
-            else resolve(foundConn.sort('ip'));
-        });
+        Core.find()
+            .then((foundConn) => {
+                resolve(foundConn.sort('ip'));
+            })
+            .catch((err) => { reject(err) });
     });
-
-
 }
+
+
 var getById = function (id) {
     return new Promise(function (resolve, reject) {
         Core.findById(id, function (err, foundConn) {
